@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".view.recommend.RecommendActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/home_text"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="A-choo"
+            android:textSize="30dp"
+            android:textColor="#fc8d8b"
+            android:gravity="center"
+            android:onClick="onclick"/>
+
+        <ImageButton
+            android:id="@+id/logout_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:maxHeight="15dp"
+            android:maxWidth="15dp"
+            android:src="@drawable/ic_more_horiz_pink_24dp"
+            android:background="#fafafa"
+            android:onClick="onclick"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fafafa">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#fafafa"
+                    app:tabIndicatorColor="#fc8d8b"
+                    app:tabSelectedTextColor="#fc8d8b"
+                    app:tabTextColor="#747474">
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/price_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="가격대" />
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/good_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="인기순" />
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/tone_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="피부톤" />
+
+                    <android.support.design.widget.TabItem
+                        android:id="@+id/color_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="색상" />
+
+                </android.support.design.widget.TabLayout>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <ImageButton
+                android:id="@+id/home"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/home_button_click"
+                android:onClick="onclick"/>
+            <ImageButton
+                android:id="@+id/product"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/lipstick_button_click"
+                android:onClick="onclick"/>
+            <ImageButton
+                android:id="@+id/detail"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/detail_button_click"
+                android:onClick="onclick"/>
+            <ImageButton
+                android:id="@+id/community"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/recommend_button_click"
+                android:onClick="onclick"/>
+
+            <ImageButton
+                android:id="@+id/mypage"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/mypage_button_click"
+                android:onClick="onclick"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

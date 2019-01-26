@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.login.LoginActivity">
+
+    <ImageView
+        android:layout_marginTop="130dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fafafa"
+        android:src="@drawable/main_logo"
+        />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#C08AAA"
+        android:fontFamily="@font/hansuwon_r"
+        android:text="Login"
+        android:textSize="25dp"
+        android:textColor="#fafafa"
+        android:onClick="onclick"
+        />
+    <!--android:background="#7f7f7f"-->
+    <Button
+        android:id="@+id/joinus_button"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EBA4A3"
+        android:fontFamily="@font/hansuwon_r"
+        android:text="Join us"
+        android:textSize="25dp"
+        android:textColor="#fafafa"
+        android:onClick="onclick"/>
+
+</LinearLayout>

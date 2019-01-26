@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin_lay"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto1" />
+
+    <ImageView
+        android:id="@+id/image_splash1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto2" />
+
+    <ImageView
+        android:id="@+id/image_splash2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto3" />
+
+    <ImageView
+        android:id="@+id/image_splash3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto4" />
+
+    <ImageView
+        android:id="@+id/image_splash4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto5" />
+
+    <ImageView
+        android:id="@+id/image_splash5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto6" />
+
+    <ImageView
+        android:id="@+id/image_splash6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto7" />
+
+    <ImageView
+        android:id="@+id/image_splash7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto8" />
+
+    <ImageView
+        android:id="@+id/image_splash8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/poto9" />
+
+
+    <ImageView
+        android:id="@+id/image_splash9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/logo_splash" />
+
+</RelativeLayout>
+

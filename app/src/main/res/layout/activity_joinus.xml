@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.login.JoinusActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="168dp"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/main_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/hansuwon_r"
+            android:hint="아이디(4-12자 영문대소문자)" />
+
+    <Button
+        android:id="@+id/id_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="12dp"
+        android:textColor="#ffff"
+        android:background="@color/colorPrimaryDark"
+        android:text="아이디 중복확인" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/pw"
+        android:layout_width="228dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/hansuwon_r"
+        android:hint="비밀번호(6-16자 영문대소문자, 숫자)" />
+
+    <EditText
+        android:id="@+id/pwcheck"
+        android:layout_width="228dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/hansuwon_r"
+        android:hint="비밀번호 확인" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/nickname"
+            android:layout_width="229dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/hansuwon_r"
+            android:hint="닉네임" />
+
+    <Button
+        android:id="@+id/nickname_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="12dp"
+        android:textColor="#ffff"
+        android:background="@color/colorPrimaryDark"
+        android:text="닉네임 중복확인" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이메일"
+        android:fontFamily="@font/hansuwon_r"/>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/joinus_button"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EBA4A3"
+        android:fontFamily="@font/hansuwon_r"
+        android:text="join us"
+        android:textSize="25dp"
+        android:textColor="#fafafa"/>
+
+</LinearLayout>

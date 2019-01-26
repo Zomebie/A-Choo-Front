@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fafafa"
+    android:fitsSystemWindows="true"
+    tools:context=".view.home.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/home_text"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="A-choo"
+            android:textSize="30dp"
+            android:textColor="#fc8d8b"
+            android:gravity="center"
+            android:onClick="onclick"/>
+
+        <ImageButton
+            android:id="@+id/logout_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:maxHeight="15dp"
+            android:maxWidth="15dp"
+            android:src="@drawable/ic_more_horiz_pink_24dp"
+            android:background="#fafafa"
+            android:onClick="onclick"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F0F0F0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="광고 등을 넣을 예정"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <ImageButton
+                android:id="@+id/home"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/home_button_click"
+                android:onClick="onclick"/>
+            <ImageButton
+                android:id="@+id/product"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/lipstick_button_click"
+                android:onClick="onclick"/>
+            <ImageButton
+                android:id="@+id/detail"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/detail_button_click"
+                android:onClick="onclick"/>
+            <ImageButton
+                android:id="@+id/community"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/recommend_button_click"
+                android:onClick="onclick"/>
+
+            <ImageButton
+                android:id="@+id/mypage"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="#fafafa"
+                android:scaleType="centerInside"
+                android:src="@drawable/mypage_button_click"
+                android:onClick="onclick"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
