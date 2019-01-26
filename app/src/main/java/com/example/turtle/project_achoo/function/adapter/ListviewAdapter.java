@@ -1,6 +1,7 @@
 package com.example.turtle.project_achoo.function.adapter;
 
 import android.content.Context;
+import android.icu.text.LocaleDisplayNames;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class ListviewAdapter extends BaseAdapter {
         }
         ProductDTO listviewitem = data.get(position);
 
-
+        //hi
         ImageView product_image = convertView.findViewById(R.id.product_image);
 
         new DownloadImageTask(product_image).execute(listviewitem.getPimg());
