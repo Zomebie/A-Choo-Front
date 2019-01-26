@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.turtle.project_achoo.function.background.DownloadImageTask;
+import com.example.turtle.project_achoo.function.backgroundTask.DownloadImageTask;
 import com.example.turtle.project_achoo.function.model.product.ProductDTO;
 import com.example.turtle.project_achoo.R;
 
@@ -48,15 +48,14 @@ public class ListviewAdapter extends BaseAdapter {
         }
         ProductDTO listviewitem = data.get(position);
 
-
         ImageView product_image = convertView.findViewById(R.id.product_image);
-
+        //Async
         new DownloadImageTask(product_image).execute(listviewitem.getPimg());
 
         TextView product_brand = convertView.findViewById(R.id.product_brand);
         product_brand.setText(listviewitem.getPbrand());
 
-        TextView product_name =  convertView.findViewById(R.id.product_name);
+        TextView product_name = convertView.findViewById(R.id.product_name);
         product_name.setText(listviewitem.getPname());
 
 

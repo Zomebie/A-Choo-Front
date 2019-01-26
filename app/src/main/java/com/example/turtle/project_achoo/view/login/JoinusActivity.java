@@ -30,17 +30,17 @@ public class JoinusActivity extends AppCompatActivity {
 
     EditText id, pw, pwcheck, nickname, email;
     Button id_confirm, nickname_confirm, joinus_button;
-
+/*
     UIThread U;
     UIHandler u;
-    String state;
+    String state;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joinus);
 
-        u = new UIHandler();
+        //u = new UIHandler();
 
         joinus_button = (Button) findViewById(R.id.joinus_button);
         id = (EditText) findViewById(R.id.id);
@@ -174,10 +174,10 @@ public class JoinusActivity extends AppCompatActivity {
             }//if
         }); // submit.setOnclickListener
 
-        state = "Active";
+      /*  state = "Active";
         U = new UIThread();
         U.start();
-
+*/
     }
 
     private boolean validate() {
@@ -257,7 +257,7 @@ public class JoinusActivity extends AppCompatActivity {
         return true;
 
     } // validate ()함수끝
-
+/*
     private class UIThread extends Thread {
         Message msg;
         boolean loop = true;
@@ -306,7 +306,7 @@ public class JoinusActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         state = "Active";
-    }
+    }*/
 
     //액티비티 애니메이션 없에기
     @Override

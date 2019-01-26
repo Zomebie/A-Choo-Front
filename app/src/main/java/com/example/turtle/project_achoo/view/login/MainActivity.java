@@ -22,22 +22,22 @@ public class MainActivity extends AppCompatActivity {
     private Button joinus_button;
     private Intent intent;
 
-    UIThread U;
-    UIHandler u;
-    String state;
+    //private UIThread uiThread;
+    //UIHandler uiHandler;
+    //String state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        u = new UIHandler();
-
-        login_button = (Button)findViewById(R.id.login_button);
-        joinus_button = (Button)findViewById(R.id.joinus_button);
+        //uiHandler = new UIHandler();
 
 
-        SharedPreferences appData=getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
+        login_button = (Button) findViewById(R.id.login_button);
+        joinus_button = (Button) findViewById(R.id.joinus_button);
+
+        SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
         // login_status가 true면 자동로그인
         if (appData.getBoolean("login_status", false)) {
 
@@ -45,85 +45,87 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+//        state = "Active";
+//        uiThread = new UIThread();
+//        uiThread.start();
 
-        state = "Active";
-        U = new UIThread();
-        U.start();
     }
 
-    public void onclick(View view){
+    public void onclick(View view) {
 
         intent = null;
 
-        switch (view.getId()){
+        switch (view.getId()) {
 
-            case R.id.login_button: intent = new Intent(this, LoginActivity.class);
+            case R.id.login_button:
+                intent = new Intent(this, LoginActivity.class);
                 //finish();
-            break;
-            case R.id.joinus_button: intent = new Intent(this, JoinusActivity.class);
+                break;
+            case R.id.joinus_button:
+                intent = new Intent(this, JoinusActivity.class);
                 //finish();
-            break;
+                break;
         }
 
         startActivity(intent);
     }
 
-    private class UIThread extends Thread {
-        Message msg;
-        boolean loop = true;
+//    private class UIThread extends Thread {
+//        Message msg;
+//        boolean loop = true;
+//
+//        public void run() {
+//            try {
+//                while (loop) {
+//                    Thread.sleep(100);
+//
+//                    if (Thread.interrupted()) { // 인터럽트가 들어오면 루프를 탈출
+//                        loop = false;
+//                        break;
+//                    }
+//
+//                    msg = u.obtainMessage();
+//                    msg.arg1 = 1;
+//
+//                    u.sendMessage(msg);
+//                }
+//            } catch (InterruptedException e) {
+//                // 슬립 상태에서 인터럽트가 들어오면 익셉션 발생
+//                loop = false;
+//            }
+//        }
+//    }
 
-        public void run() {
-            try {
-                while (loop) {
-                    Thread.sleep(100);
-
-                    if (Thread.interrupted()) { // 인터럽트가 들어오면 루프를 탈출
-                        loop = false;
-                        break;
-                    }
-
-                    msg = u.obtainMessage();
-                    msg.arg1 = 1;
-
-                    u.sendMessage(msg);
-                }
-            } catch (InterruptedException e) {
-                // 슬립 상태에서 인터럽트가 들어오면 익셉션 발생
-                loop = false;
-            }
-        }
-    }
-
-    private class UIHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.arg1) {
-                case 1:
-                    if (state.equals("DeActive"))   // Fragment가 숨겨진 상태일 때
-                        break;
-                    // Fragment의 UI를 변경하는 작업을 수행합니다.
-            }
-        }
-    }
-
-    public void onStop() {
-        super.onStop();
-        state = "DeActive";
-        U.interrupt();
-    }
-
-    public void onResume(){
-        super.onResume();
-        state = "Active";
-    }
-
-    //액티비티 애니메이션 없에기
-    @Override
-    protected void onPause() {
-        super.onPause();
-        overridePendingTransition(0,0);
-    }
+//    private class UIHandler extends Handler {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.arg1) {
+//                case 1:
+//                    if (state.equals("DeActive"))   // Fragment가 숨겨진 상태일 때
+//                        break;
+//                    // Fragment의 UI를 변경하는 작업을 수행합니다.
+//            }
+//        }
+//    } // UIHandler
+//
+//    public void onStop() {
+//        super.onStop();
+//        state = "DeActive";
+//        //uiThread.interrupt();
+//    }
+//
+//    public void onResume(){
+//        super.onResume();
+//        state = "Active";
+//    }
+//
+//    //액티비티 애니메이션 없에기
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        overridePendingTransition(0,0);
+//    }
 
     @Override
     public void onBackPressed() {

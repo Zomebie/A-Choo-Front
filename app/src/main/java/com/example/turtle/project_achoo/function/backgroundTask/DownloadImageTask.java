@@ -1,4 +1,4 @@
-package com.example.turtle.project_achoo.function.background;
+package com.example.turtle.project_achoo.function.backgroundTask;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

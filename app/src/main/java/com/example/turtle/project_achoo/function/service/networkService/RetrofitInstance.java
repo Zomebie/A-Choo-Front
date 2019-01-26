@@ -1,7 +1,5 @@
 package com.example.turtle.project_achoo.function.service.networkService;
 
-
-
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 

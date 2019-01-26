@@ -12,25 +12,25 @@ import com.example.turtle.project_achoo.R;
 
 public class InterestingFragment extends Fragment {
 
-    UIThread U;
+    /*UIThread U;
     UIHandler u;
-    String state;
+    String state;*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        u = new UIHandler();
+        //u = new UIHandler();
 
         View rootView = inflater.inflate(R.layout.fragment_interesting, container, false);
 
-        state = "Active";
+        /*state = "Active";
         U = new UIThread();
-        U.start();
+        U.start();*/
 
         return rootView;
     }
 
-    private class UIThread extends Thread {
+    /*private class UIThread extends Thread {
         Message msg;
         boolean loop = true;
 
@@ -78,7 +78,7 @@ public class InterestingFragment extends Fragment {
     public void onResume(){
         super.onResume();
         state = "Active";
-    }
+    }*/
 
 
 }

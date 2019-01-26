@@ -28,17 +28,19 @@ public class LoginActivity extends AppCompatActivity {
     private Button login_button;
     private EditText id, pw;
     private Intent intent;
+/*
 
     UIThread U;
     UIHandler u;
     String state;
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        u = new UIHandler();
+      //  u = new UIHandler();
 
         id = findViewById(R.id.editText_id);
         pw = findViewById(R.id.editText_pw);
@@ -107,10 +109,10 @@ public class LoginActivity extends AppCompatActivity {
 
             } // validate()
         }); // login.setOnClickListener()
-
+/*
         state = "Active";
         U = new UIThread();
-        U.start();
+        U.start();*/
 
     } // Oncreate
 
@@ -163,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }*/
 
-    private class UIThread extends Thread {
+   /* private class UIThread extends Thread {
         Message msg;
         boolean loop = true;
 
@@ -212,7 +214,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
         state = "Active";
     }
-
+*/
     //액티비티 애니메이션 없에기
     @Override
     protected void onPause() {

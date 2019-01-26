@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.turtle.project_achoo.function.background.DownloadImageTask;
+import com.example.turtle.project_achoo.function.backgroundTask.DownloadImageTask;
 import com.example.turtle.project_achoo.function.model.product.LikeProductDTO;
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.function.service.networkService.LikeProductService;

@@ -23,9 +23,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public static final String TAG = "DEBUG";
 
-    UIThread U;
+   /* UIThread U;
     UIHandler u;
-    String state;
+    String state;*/
     private String id;
 
     @Override
@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
         ImageButton home , product, detail, community, mypage, logout_button;
         TextView home_text;
 
-        u = new UIHandler();
+       // u = new UIHandler();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -57,9 +57,9 @@ public class HomeActivity extends AppCompatActivity {
         home_text =(TextView) findViewById(R.id.home_text);
 
 
-        state = "Active";
+        /*state = "Active";
         U = new UIThread();
-        U.start();
+        U.start();*/
 
         // 로그아웃
         logout_button.setOnClickListener(v -> {
@@ -107,7 +107,7 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
 //        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
-
+/*
 
     private class UIThread extends Thread {
         Message msg;
@@ -157,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         state = "Active";
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
