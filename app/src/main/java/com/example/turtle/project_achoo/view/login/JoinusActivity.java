@@ -14,6 +14,7 @@ import com.example.turtle.project_achoo.function.model.member.MemberDTO;
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.function.service.networkService.MemberService;
 import com.example.turtle.project_achoo.function.service.networkService.RetrofitInstance;
+import com.example.turtle.project_achoo.view.home.HomeActivity;
 import com.google.gson.Gson;
 
 import java.util.regex.Pattern;
@@ -26,10 +27,8 @@ import retrofit2.Response;
 
 public class JoinusActivity extends AppCompatActivity {
 
-    private static final String TAG = "DEBUG";
-
-    EditText id, pw, pwcheck, nickname, email;
-    Button id_confirm, nickname_confirm, joinus_button;
+    private EditText id, pw, pwcheck, nickname, email;
+    private Button id_confirm, nickname_confirm, joinus_button;
 /*
     UIThread U;
     UIHandler u;
@@ -40,16 +39,22 @@ public class JoinusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joinus);
 
-        //u = new UIHandler();
+        setView();
 
-        joinus_button = (Button) findViewById(R.id.joinus_button);
+    }
+
+    private void setView() {
+
         id = (EditText) findViewById(R.id.id);
-        id_confirm = (Button) findViewById(R.id.id_confirm);
         pw = (EditText) findViewById(R.id.pw);
         pwcheck = (EditText) findViewById(R.id.pwcheck);
         nickname = (EditText) findViewById(R.id.nickname);
-        nickname_confirm = (Button) findViewById(R.id.nickname_confirm);
         email = (EditText) findViewById(R.id.email);
+
+        id_confirm = (Button) findViewById(R.id.id_confirm);
+        nickname_confirm = (Button) findViewById(R.id.nickname_confirm);
+        joinus_button = (Button) findViewById(R.id.joinus_button);
+
 
         id_confirm.setOnClickListener(v -> {
 
@@ -60,31 +65,8 @@ public class JoinusActivity extends AppCompatActivity {
 
 
             } else {
+                checkIdFromServer();
 
-                MemberService memberService = RetrofitInstance.getMemberService();
-                Call<Integer> call = memberService.duplicationCheckId(id.getText().toString());
-
-                call.enqueue(new Callback<Integer>() {
-                                 @Override
-                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                     int result = response.body();
-                                     if (result == 1) {
-                                         Toast.makeText(getApplicationContext(), "이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
-                                         id.requestFocus();
-
-                                     } else if (result == 2) {
-                                         Toast.makeText(getApplicationContext(), "사용가능한 아이디입니다.", Toast.LENGTH_SHORT).show();
-
-
-                                     }
-                                 }
-
-                                 @Override
-                                 public void onFailure(Call<Integer> call, Throwable t) {
-
-                                 }
-                             }
-                );
             }
 
         }); // id_confirm.setOnClickListener()
@@ -95,90 +77,121 @@ public class JoinusActivity extends AppCompatActivity {
                 nickname.requestFocus();
 
             } else {
-                MemberService memberService =RetrofitInstance.getMemberService();
-                Call<Integer> call= memberService.duplicationCheckNick(nickname.getText().toString());
-
-                call.enqueue(new Callback<Integer>() {
-                    @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
-                        int result = response.body();
-                        if (result == 1) {
-                            Toast.makeText(getApplicationContext(), "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                            id.requestFocus();
-
-                        } else if (result == 2) {
-                            Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-
-                    }
-                });
+                checkNickFromServer();
             }
         }); // nickname_confirm.setOnClickListener()
 
         joinus_button.setOnClickListener(v -> {
 
             if (validate()) { // 유효성 검사 (front-end)
-
-
-                MemberDTO memberDTO = new MemberDTO(id.getText().toString(), pw.getText().toString(), nickname.getText().toString(), email.getText().toString());
-
-                Gson gson = new Gson();
-                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(memberDTO));
-
-                MemberService memberService = RetrofitInstance.getMemberService();
-                Call<Integer> call = memberService.join(requestBody); // memberDTO 객체를 @RequestBody로 넘겨주기
-
-
-                call.enqueue(new Callback<Integer>() {
-                    @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
-
-                        int result = response.body();
-                        switch (result) {
-                            case 1: {
-                                Intent intent = new Intent();
-                                intent.putExtra("id", id.getText().toString());
-                                // 자신을 호출한 Activity로 데이터를 보낸다.
-                                setResult(RESULT_OK, intent);
-                                finish();
-                                break;
-                            }
-
-                            case 2: {
-                                Toast.makeText(getApplicationContext(), "이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
-                                id.requestFocus();
-                                break;
-                            }
-                            case 3: {
-                                Toast.makeText(getApplicationContext(), "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                                nickname.requestFocus();
-                                break;
-                            }
-
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-                        Log.d(JoinusActivity.TAG, "회원가입 실패");
-                    }
-                });
+                joinToServer();
             }//if
         }); // submit.setOnclickListener
 
-      /*  state = "Active";
-        U = new UIThread();
-        U.start();
-*/
     }
+
+    private void joinToServer() {
+
+
+        MemberDTO memberDTO = new MemberDTO(id.getText().toString(), pw.getText().toString(), nickname.getText().toString(), email.getText().toString());
+
+        Gson gson = new Gson();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(memberDTO));
+
+        MemberService memberService = RetrofitInstance.getMemberService();
+        Call<Integer> call = memberService.join(requestBody); // memberDTO 객체를 @RequestBody로 넘겨주기
+
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                int result = response.body();
+                switch (result) {
+                    case 1: {
+                        Intent intent = new Intent();
+                        intent.putExtra("id", id.getText().toString());
+                        // 자신을 호출한 Activity로 데이터를 보낸다.
+                        setResult(RESULT_OK, intent);
+                        finish();
+                        break;
+                    }
+
+                    case 2: {
+                        Toast.makeText(getApplicationContext(), "이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                        id.requestFocus();
+                        break;
+                    }
+                    case 3: {
+                        Toast.makeText(getApplicationContext(), "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                        nickname.requestFocus();
+                        break;
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.d(HomeActivity.TAG, "회원가입 실패");
+            }
+        });
+    }
+
+    private void checkNickFromServer() {
+
+        MemberService memberService = RetrofitInstance.getMemberService();
+        Call<Integer> call = memberService.duplicationCheckNick(nickname.getText().toString());
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                int result = response.body();
+                if (result == 1) {
+                    Toast.makeText(getApplicationContext(), "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                    id.requestFocus();
+
+                } else if (result == 2) {
+                    Toast.makeText(getApplicationContext(), "사용가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void checkIdFromServer() {
+        MemberService memberService = RetrofitInstance.getMemberService();
+        Call<Integer> call = memberService.duplicationCheckId(id.getText().toString());
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                int result = response.body();
+                if (result == 1) {
+                    Toast.makeText(getApplicationContext(), "이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                    id.requestFocus();
+
+                } else if (result == 2) {
+                    Toast.makeText(getApplicationContext(), "사용가능한 아이디입니다.", Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
+    } // checkIdFromServer()
 
     private boolean validate() {
 
@@ -259,7 +272,7 @@ public class JoinusActivity extends AppCompatActivity {
     } // validate ()함수끝
 /*
     private class UIThread extends Thread {
-        Message msg;
+        MessageHandler msg;
         boolean loop = true;
 
         public void run() {
@@ -286,7 +299,7 @@ public class JoinusActivity extends AppCompatActivity {
 
     private class UIHandler extends Handler {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(MessageHandler msg) {
             super.handleMessage(msg);
             switch (msg.arg1) {
                 case 1:
@@ -312,7 +325,7 @@ public class JoinusActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
 

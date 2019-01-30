@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,15 +36,17 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class AllFragment extends Fragment implements AbsListView.OnScrollListener{
+public class AllFragment extends Fragment implements AbsListView.OnScrollListener {
 
     UIThread U;
     UIHandler u;
     String state;
 
-    private ListView listView;
+    private SharedPreferences appData;
     private String id;
 
+    private EditText search;
+    private ListView listView;
     private ArrayList<ProductDTO> result = null;
     private ListviewAdapter adapter = null;
 
@@ -57,7 +62,14 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
         U = new UIThread();
         U.start();
 
-        SharedPreferences appData = this.getActivity().getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
+        setView(rootView);
+
+        return rootView;
+    }
+
+    private void setView(View rootView) {
+
+        appData = this.getActivity().getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
 
         if (appData.contains("login_status")) {
 
@@ -65,17 +77,38 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
 
         }
 
+        search = rootView.findViewById(R.id.all_search_text);
         listView = rootView.findViewById(R.id.all_listview);
 
         // 상품 리스트 서버에 요청
         getPrductList(this);
+
+        // input창에 검색어를 입력시 "addTextChangedListener" 이벤트 리스너를 정의한다.
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // input창에 문자를 입력할때마다 호출된다.
+                // search 메소드를 호출한다.
+                String text = search.getText().toString();
+                //searchFunction(text);
+            }
+        });
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id2) {
 
                 // 제품 상세 보기 넘어가기 , 조회 수 올리기
-
                 ProductService productService = RetrofitInstance.getProductService();
                 Call<Integer> call = productService.countHits(id, result.get(position).getPcode());
                 call.enqueue(new Callback<Integer>() {
@@ -96,7 +129,7 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
 
                 Intent intent = new Intent(rootView.getContext(), ProductListDetail.class);
 
-                intent.putExtra("Pcode",result.get(position).getPcode());
+                intent.putExtra("Pcode", result.get(position).getPcode());
                 intent.putExtra("Pimg", result.get(position).getPimg());
                 intent.putExtra("Pbrand", result.get(position).getPbrand());
                 intent.putExtra("Pname", result.get(position).getPname());
@@ -106,9 +139,37 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
                 startActivity(intent);
             }
         });
-
-        return rootView;
     }
+
+//    private void searchFunction(String text) {
+//
+//
+//        ArrayList<ProductDTO> container = new ArrayList<>();
+//        container.addAll(result);
+//
+//        // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
+//        result.clear();
+//
+//        // 문자 입력이 없을때는 모든 데이터를 보여준다.
+//        if (text.length() == 0) {
+//
+//            result.addAll(container);
+//        }
+//        // 문자 입력을 할때..
+//        else {
+//            // 리스트의 모든 데이터를 검색한다.
+//            for (int i = 0; i < container.size(); i++) {
+//                // arraylist의 모든 데이터에 입력받은 단어(text)가 포함되어 있으면 true를 반환한다.
+//                if (container.get(i).toLowerCase().contains(text)) {
+//                    // 검색된 데이터를 리스트에 추가한다.
+//                    result.add(container.get(i));
+//                }
+//            }
+//        }
+//        // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
+//        adapter.notifyDataSetChanged();
+//
+//    }
 
     public void getPrductList(AllFragment productList) {
 
@@ -138,8 +199,6 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
 
             @Override
             public void onFailure(Call<ProductDTO_info> call, Throwable t) {
-                Toast.makeText(getActivity(), "Data load failed.", Toast.LENGTH_LONG)
-                        .show();
 
 
             }
@@ -153,6 +212,7 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -162,10 +222,12 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
     }
+
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -216,7 +278,7 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
         U.interrupt();
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         state = "Active";
     }

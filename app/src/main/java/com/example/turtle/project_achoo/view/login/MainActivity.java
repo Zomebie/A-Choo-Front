@@ -8,15 +8,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.view.home.HomeActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "DEBUG";
+    // 로그인 쿠키
+    private SharedPreferences appData;
+    private String id;
 
     private Button login_button;
     private Button joinus_button;
@@ -33,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
 
         //uiHandler = new UIHandler();
 
+        setView();
 
-        login_button = (Button) findViewById(R.id.login_button);
-        joinus_button = (Button) findViewById(R.id.joinus_button);
 
-        SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
+    }
+
+    private void setView() {
+
+        appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
+
         // login_status가 true면 자동로그인
         if (appData.getBoolean("login_status", false)) {
 
@@ -45,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-//        state = "Active";
-//        uiThread = new UIThread();
-//        uiThread.start();
+
+        login_button = (Button) findViewById(R.id.login_button);
+        joinus_button = (Button) findViewById(R.id.joinus_button);
+
 
     }
 
@@ -70,8 +79,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
 //    private class UIThread extends Thread {
-//        Message msg;
+//        MessageHandler msg;
 //        boolean loop = true;
 //
 //        public void run() {
@@ -98,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    private class UIHandler extends Handler {
 //        @Override
-//        public void handleMessage(Message msg) {
+//        public void handleMessage(MessageHandler msg) {
 //            super.handleMessage(msg);
 //            switch (msg.arg1) {
 //                case 1:

@@ -31,7 +31,7 @@ public class InterestingFragment extends Fragment {
     }
 
     /*private class UIThread extends Thread {
-        Message msg;
+        MessageHandler msg;
         boolean loop = true;
 
         public void run() {
@@ -58,7 +58,7 @@ public class InterestingFragment extends Fragment {
 
     private class UIHandler extends Handler {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(MessageHandler msg) {
             super.handleMessage(msg);
             switch (msg.arg1) {
                 case 1:

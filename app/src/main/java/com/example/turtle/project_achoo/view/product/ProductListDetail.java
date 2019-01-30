@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.turtle.project_achoo.function.backgroundTask.DownloadImageTask;
 import com.example.turtle.project_achoo.function.model.product.LikeProductDTO;
 import com.example.turtle.project_achoo.R;
@@ -26,9 +29,11 @@ import retrofit2.Response;
 
 public class ProductListDetail extends AppCompatActivity {
 
-    private ImageView productImage;
+    private SharedPreferences appData;
+
+    private ImageView productImage, likeIt;
     private TextView productBrand, productName, productPrice;
-    private Button likeThisProduct;
+
     private Intent intent;
     private String pImg, pBrand, pName, pPrice, pCode, id;
 
@@ -37,7 +42,14 @@ public class ProductListDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list_detail);
 
-        SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
+        setView();
+
+
+    } // onCreate
+
+    private void setView() {
+
+        appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
 
         if (appData.contains("login_status")) {
 
@@ -49,7 +61,7 @@ public class ProductListDetail extends AppCompatActivity {
         productBrand = findViewById(R.id.productBrand);
         productName = findViewById(R.id.productName);
         productPrice = findViewById(R.id.productPrice);
-        likeThisProduct = findViewById(R.id.likeThisProduct);
+        likeIt = findViewById(R.id.likeIt);
 
         intent = getIntent();
         pCode = intent.getStringExtra("Pcode");
@@ -58,40 +70,51 @@ public class ProductListDetail extends AppCompatActivity {
         pName = intent.getStringExtra("Pname");
         pPrice = intent.getStringExtra("Pprice");
 
-        new DownloadImageTask(productImage).execute(pImg);
+        //new DownloadImageTask(productImage).execute(pImg);
+        String img_url = "http://192.168.0.24:4000/static/images/" + pImg;
+        Glide.with(this).load(img_url).apply(new RequestOptions().format(DecodeFormat.PREFER_ARGB_8888)).into(productImage);
+
         productBrand.setText(pBrand);
         productName.setText(pName);
         productPrice.setText(pPrice);
 
-        // 좋아요 누르면 관심 상품에 추가 like_product table
-        likeThisProduct.setOnClickListener(v -> {
+        //좋아요 누르면 관심 상품에 추가 like_product
+        likeIt.setOnClickListener(v -> {
 
-            LikeProductDTO likeProductDTO = new LikeProductDTO(id, pCode);
-            Gson gson = new Gson();
-            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(likeProductDTO));
+            addLikeProduct();
 
-            LikeProductService likeProductService = RetrofitInstance.getLikeProductService();
-            Call<Integer> call = likeProductService.addToCart(requestBody);
-
-            call.enqueue(new Callback<Integer>() {
-                @Override
-                public void onResponse(Call<Integer> call, Response<Integer> response) {
-                    int result = response.body();
-                    if (result == 1)
-                        Toast.makeText(getApplicationContext(), "관심 상품에 추가되었습니다.", Toast.LENGTH_SHORT).show();
-                    else if(result==0)
-                        Toast.makeText(getApplicationContext(), "이미 관심 상품에 추가되있는 상품입니다.", Toast.LENGTH_SHORT).show();
-
-                }
-
-                @Override
-                public void onFailure(Call<Integer> call, Throwable t) {
-
-                    Log.d(HomeActivity.TAG,"요청 실패");
-
-                }
-            });
         });
-    } // onCreate
 
+
+    } // setView()
+
+    private void addLikeProduct() {
+
+        LikeProductDTO likeProductDTO = new LikeProductDTO(id, pCode); // 회원 닉네임과 상품 코드
+        Gson gson = new Gson();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(likeProductDTO));
+
+        LikeProductService likeProductService = RetrofitInstance.getLikeProductService();
+        Call<Integer> call = likeProductService.addToCart(requestBody);
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                int result = response.body();
+                if (result == 1)
+                    Toast.makeText(getApplicationContext(), "관심 상품에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                else if (result == 0)
+                    Toast.makeText(getApplicationContext(), "이미 관심 상품에 추가되있는 상품입니다.", Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+                Log.d(HomeActivity.TAG, "요청 실패");
+
+            }
+        });
+    }
 }

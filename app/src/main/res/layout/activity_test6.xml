@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.selfTest.Test6">
+
+    <TextView
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gabriola"
+        android:text="check6"
+        android:textStyle="bold"
+        android:textSize="35dp"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/gabriola"
+        android:text="햇볕에 잘타는 타입인가요?"
+        android:textSize="22dp"
+        android:textColor="#000000"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/W6"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:text="피부가 까맣게타고 오래 지속된다"
+            android:textSize="20dp"
+            android:checked="false" />
+
+
+        <RadioButton
+            android:id="@+id/C6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:text="피부가 빨갛게타고 금방 돌아온다"
+            android:textSize="20dp" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/preview"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/gabriola"
+            android:onClick="onclick"
+            android:text=" ← PREVIOUS"
+            android:textSize="25dp"/>
+
+        <TextView
+            android:id="@+id/next"
+            android:layout_marginTop="20dp"
+            android:gravity="right"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/gabriola"
+            android:onClick="onclick"
+            android:text="NEXT →"
+            android:textSize="25dp"/>
+    </LinearLayout>
+
+</LinearLayout>

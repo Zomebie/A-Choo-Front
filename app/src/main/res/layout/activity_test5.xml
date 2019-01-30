@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.selfTest.Test5">
+
+    <LinearLayout
+        android:layout_marginTop="70dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/gabriola"
+            android:textStyle="bold"
+            android:text="check5"
+            android:textSize="35dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:text="손목 핏줄색을 선택해주세요"
+            android:textSize="22dp"
+            android:fontFamily="@font/gabriola"
+            android:textColor="#000000"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:src="@drawable/arm1"
+                android:scaleType="fitXY"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="90dp"
+                android:src="@drawable/arm2"
+                android:scaleType="fitXY"
+                />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/W5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:text="초록색"
+                android:textSize="18dp"
+                android:checked="false" />
+
+            <RadioButton
+                android:id="@+id/C5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="70dp"
+                android:text="파란색 또는 보라색"
+                android:textSize="18dp" />
+
+        </RadioGroup>
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/preview"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:fontFamily="@font/gabriola"
+                android:text=" ← PREVIOUS"
+                android:textSize="25dp"
+                android:onClick="onclick"/>
+
+            <TextView
+                android:id="@+id/next"
+                android:layout_marginTop="20dp"
+                android:gravity="right"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:fontFamily="@font/gabriola"
+                android:text="NEXT →"
+                android:textSize="25dp"
+                android:onClick="onclick"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

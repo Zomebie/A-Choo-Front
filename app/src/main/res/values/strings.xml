@@ -12,6 +12,6 @@
     <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
     <string name="limit">Some functions are restricted due to permission denial.</string>
 
-    <string name="kakao_app_key">79edd8acdc8e7a32347ab86d7cee690d </string>
+    <string name="kakao_app_key">acfb591906bee40fbb5344f12191fd97 </string>
 
 </resources>

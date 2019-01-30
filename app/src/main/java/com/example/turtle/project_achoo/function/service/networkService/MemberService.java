@@ -29,5 +29,7 @@ public interface MemberService {
     @POST("modify")
     Call<Integer> modify(@Body RequestBody memberDTO);
 
+    @POST("setSelfTestResult")
+    Call <Integer> setSelfTestResult(@Query("selfT") String selfT, @Query("nick") String nick);
 
 }

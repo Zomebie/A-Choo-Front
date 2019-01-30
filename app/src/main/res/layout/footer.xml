@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    >
+    <ImageButton
+        android:id="@+id/home"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:background="#fafafa"
+        android:scaleType="centerInside"
+        android:src="@drawable/home_button_click"
+        android:onClick="onclick"/>
+    <ImageButton
+        android:id="@+id/product"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:background="#fafafa"
+        android:scaleType="centerInside"
+        android:src="@drawable/lipstick_button_click"
+        android:onClick="onclick"/>
+    <ImageButton
+        android:id="@+id/detail"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:background="#fafafa"
+        android:scaleType="centerInside"
+        android:src="@drawable/detail_button_click"
+        android:onClick="onclick"/>
+    <ImageButton
+        android:id="@+id/community"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:background="#fafafa"
+        android:scaleType="centerInside"
+        android:src="@drawable/recommend_button_click"
+        android:onClick="onclick"/>
+
+    <ImageButton
+        android:id="@+id/mypage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:background="#fafafa"
+        android:scaleType="centerInside"
+        android:src="@drawable/mypage_button_click"
+        android:onClick="onclick"/>
+</LinearLayout>

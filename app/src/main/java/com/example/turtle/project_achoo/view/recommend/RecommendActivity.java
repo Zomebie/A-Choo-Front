@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,12 +23,20 @@ import android.widget.Toast;
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.view.detailTest.DetailActivity;
 import com.example.turtle.project_achoo.view.home.HomeActivity;
+import com.example.turtle.project_achoo.view.login.MainActivity;
 import com.example.turtle.project_achoo.view.myPage.MypageActivity;
 import com.example.turtle.project_achoo.view.product.ProductActivity;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 public class RecommendActivity extends AppCompatActivity {
+
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
+    private ImageButton home , product, detail, community, mypage, logout_button;
+    private TextView home_text;
 
     UIThread U;
     UIHandler u;
@@ -37,9 +46,6 @@ public class RecommendActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        ImageButton home , product, detail, community, mypage, logout_button;
-        TextView home_text;
 
         u = new UIHandler();
 
@@ -88,7 +94,27 @@ public class RecommendActivity extends AppCompatActivity {
                 builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "로그아웃",Toast.LENGTH_LONG).show();
+
+                        SharedPreferences.Editor editor = appData.edit();
+                        editor.putBoolean("login_status", false);
+                        editor.commit();
+
+                        // 카카오톡 로그아웃
+                        UserManagement.requestLogout(new LogoutResponseCallback() {
+
+                            @Override
+
+                            public void onCompleteLogout() {
+
+
+                            }
+
+                        });
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+
+                        Snackbar.make(v, "로그아웃 되었습니다.", Snackbar.LENGTH_LONG).show();
                         finish();
                     }
                 });

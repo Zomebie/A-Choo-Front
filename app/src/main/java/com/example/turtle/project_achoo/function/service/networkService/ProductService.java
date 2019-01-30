@@ -18,6 +18,6 @@ public interface ProductService {
     @POST("countHits")
     Call<Integer> countHits(@Query("id") String id, @Query("pcode") String pcode);
 
-//    @GET("productImage")
-//    Call<Bitmap> getProductImage();
+    @GET("productImageUrl")
+    Call<Integer> getProductImageUrl(@Query("imgUrl") String imgUrl);
 }
