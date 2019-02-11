@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.turtle.project_achoo.function.model.member.MemberDTO;
@@ -28,7 +29,8 @@ import retrofit2.Response;
 public class JoinusActivity extends AppCompatActivity {
 
     private EditText id, pw, pwcheck, nickname, email;
-    private Button id_confirm, nickname_confirm, joinus_button;
+    private ImageButton id_confirm, nickname_confirm;
+    private Button joinus_button;
 /*
     UIThread U;
     UIHandler u;
@@ -51,9 +53,9 @@ public class JoinusActivity extends AppCompatActivity {
         nickname = (EditText) findViewById(R.id.nickname);
         email = (EditText) findViewById(R.id.email);
 
-        id_confirm = (Button) findViewById(R.id.id_confirm);
-        nickname_confirm = (Button) findViewById(R.id.nickname_confirm);
-        joinus_button = (Button) findViewById(R.id.joinus_button);
+        id_confirm =  findViewById(R.id.id_confirm);
+        nickname_confirm =  findViewById(R.id.nickname_confirm);
+        joinus_button =  findViewById(R.id.joinus_button);
 
 
         id_confirm.setOnClickListener(v -> {

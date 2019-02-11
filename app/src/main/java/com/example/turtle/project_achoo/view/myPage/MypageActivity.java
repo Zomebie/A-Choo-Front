@@ -6,300 +6,208 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.view.login.MainActivity;
-import com.example.turtle.project_achoo.view.recommend.RecommendActivity;
-import com.example.turtle.project_achoo.view.home.HomeActivity;
-import com.example.turtle.project_achoo.view.product.ProductActivity;
-import com.example.turtle.project_achoo.view.detailTest.DetailActivity;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.example.turtle.project_achoo.view.myPage.infoEdit.MbModifyActivity;
+import com.example.turtle.project_achoo.view.myPage.testResult.DetailResultActivity;
+import com.example.turtle.project_achoo.view.myPage.testResult.SelfResultActivity;
+
 
 public class MypageActivity extends AppCompatActivity {
 
-    private SharedPreferences appData;
+    TextView info_nickname, info_selftext, info_other;  // 마이페이지 내정보
+    ImageButton info_back;   // 뒤로가기 버튼
+    Button info_update, info_write;     // 마이페이지 내정보
+    Button info_selftest, info_detailtest;  // 마이페이지 진단결과
+    Button info_product, info_brand, info_warm, info_cool;  // 마이페이지 관심상품
+    Button info_mywebpage;  // 웹페이지 호출
+    ImageButton logout_button;  // 마이페이지 로그아웃 버튼
+    ImageButton home , product, detail, community, mypage;
+    TextView home_text;
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-
-    private ImageButton home, product, detail, community, mypage, logout_button;
-
-//
-//    UIThread U;
-//    UIHandler u;
-//    String state;
+    String state;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        //  u = new UIHandler();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
-        setView();
+        // 로그인 유지
+        SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
 
-    }
+        if (appData.contains("login_status")) {
 
+            id = appData.getString("login_id", "defValue"); // 로그인한 아이디 가져오기
 
-    private void setView() {
+        }
 
-        appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-        home = (ImageButton) findViewById(R.id.home);
-        product = (ImageButton) findViewById(R.id.product);
-        detail = (ImageButton) findViewById(R.id.detail);
-        community = (ImageButton) findViewById(R.id.community);
-        mypage = (ImageButton) findViewById(R.id.mypage);
-
+        info_back = (ImageButton) findViewById(R.id.info_back);
         logout_button = (ImageButton) findViewById(R.id.logout_button);
 
-//        state = "Active";
-//        U = new UIThread();
-//        U.start();
+        info_product = (Button) findViewById(R.id.info_product);
+        info_brand = (Button) findViewById(R.id.info_brand);
+        info_warm = (Button) findViewById(R.id.info_warm);
+        info_cool = (Button) findViewById(R.id.info_cool);
+        info_mywebpage = (Button) findViewById(R.id.info_mywebgage);
+        info_write = (Button) findViewById(R.id.info_write);
+        info_update = (Button) findViewById(R.id.info_update);
+        info_selftest = (Button) findViewById(R.id.info_selftest);
+        info_detailtest = (Button) findViewById(R.id.info_detailtest);
 
-        logout_button.setOnClickListener(new View.OnClickListener() {
+        // 로그아웃
+        logout_button.setOnClickListener(v -> {
+
+            SharedPreferences.Editor editor = appData.edit();
+            editor.putBoolean("login_status", false);
+            editor.commit();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        });
+
+        AlertDialogs_Product();     // 마이페이지 관심 제품 클릭 이벤트
+        AlertDialogs_Webpage();     // 마이페이지 웹 페이지 클릭 이벤트
+        AlertDialogs_Write();       // 마이페이지 글쓰기 클릭 이벤트
+        AlertDialogs_Back();        // 마이페이지 뒤로가기 클릭 이벤트
+
+        MemberDataUpdateActivity();           // 마이페이지 내 정보 수정 클릭 이벤트
+        ResultActivity();                     // 마이페이지 진단결과 클릭 이벤트
+
+    }   // onCreate
+
+    private void MemberDataUpdateActivity() {
+
+        info_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MypageActivity.this);
-                builder.setTitle("logout");
-                builder.setMessage("로그아웃 하시겠습니까?");
-                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        SharedPreferences.Editor editor = appData.edit();
-                        editor.putBoolean("login_status", false);
-                        editor.commit();
-
-                        // 카카오톡 로그아웃
-                        UserManagement.requestLogout(new LogoutResponseCallback() {
-
-                            @Override
-
-                            public void onCompleteLogout() {
-
-
-                            }
-
-                        });
-
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-
-                        Snackbar.make(v, "로그아웃 되었습니다.", Snackbar.LENGTH_LONG).show();
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                builder.setCancelable(false);
-                builder.setIcon(R.drawable.home1);
-
-                builder.show();
+                Intent intent = new Intent(MypageActivity.this, MbModifyActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
-//        logout_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MypageActivity.this);
-//                builder.setTitle("logout");
-//                builder.setMessage("로그아웃 하시겠습니까?");
-//                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Toast.makeText(getApplicationContext(), "로그아웃", Toast.LENGTH_LONG).show();
-//                        finish();
-//                    }
-//                });
-//                builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//                builder.setCancelable(false);
-//                builder.setIcon(R.drawable.home1);
-//
-//                builder.show();
-//            }
-//        });
-    }
+    }   // MemberDataUpdateActivity
 
-    public void onclick(View view) {
+    private void ResultActivity() {
 
-        Intent intent = null;
-
-        switch (view.getId()) {
-
-            case R.id.home:
-                intent = new Intent(this, HomeActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                break;
-            case R.id.product:
-                intent = new Intent(this, ProductActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                break;
-            case R.id.detail:
-                intent = new Intent(this, DetailActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                break;
-            case R.id.community:
-                intent = new Intent(this, RecommendActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                break;
-            case R.id.mypage:
-                intent = new Intent(this, MypageActivity.class);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
-            case R.id.home_text:
-                intent = new Intent(this, HomeActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                break;
-
-        }
-        startActivity(intent);
-    }
-
-
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-
-            switch (position) {
-                case 0:
-                    MbModifyFragment mbModifyFragment = new MbModifyFragment();
-                    return mbModifyFragment;
-                case 1:
-                    TestResultFragment testResultFragment = new TestResultFragment();
-                    return testResultFragment;
-                case 2:
-                    InterestingFragment interestingFragment = new InterestingFragment();
-                    return interestingFragment;
-                default:
-                    return null;
+        info_selftest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MypageActivity.this, SelfResultActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
-        }
+        });
 
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-
-            switch (position) {
-                case 0:
-                    return "member";
-                case 1:
-                    return "testResult";
-                case 2:
-                    return "interesting";
+        info_detailtest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MypageActivity.this, DetailResultActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
+        });
 
-            return null;
-        }
-    }
+    }   // ResultActivity
 
-//    private class UIThread extends Thread {
-//        MessageHandler msg;
-//        boolean loop = true;
-//
-//        public void run() {
-//            try {
-//                while (loop) {
-//                    Thread.sleep(100);
-//
-//                    if (Thread.interrupted()) { // 인터럽트가 들어오면 루프를 탈출
-//                        loop = false;
-//                        break;
-//                    }
-//
-//                    msg = u.obtainMessage();
-//                    msg.arg1 = 1;
-//
-//                    u.sendMessage(msg);
-//                }
-//            } catch (InterruptedException e) {
-//                // 슬립 상태에서 인터럽트가 들어오면 익셉션 발생
-//                loop = false;
-//            }
-//        }
-//    }
-//
-//    private class UIHandler extends Handler {
-//        @Override
-//        public void handleMessage(MessageHandler msg) {
-//            super.handleMessage(msg);
-//            switch (msg.arg1) {
-//                case 1:
-//                    if (state.equals("DeActive"))   // Fragment가 숨겨진 상태일 때
-//                        break;
-//                    // Fragment의 UI를 변경하는 작업을 수행합니다.
-//            }
-//        }
-//    }
-//
-//    public void onStop() {
-//        super.onStop();
-//        state = "DeActive";
-//        U.interrupt();
-//    }
-//
-//    public void onResume(){
-//        super.onResume();
-//        state = "Active";
-//    }
+    private void AlertDialogs_Product() {
 
-    //액티비티 애니메이션 없에기
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        overridePendingTransition(0,0);
-    }
+        info_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MypageActivity.this)
+                        .setTitle("아름다움을 추천하다")
+                        .setMessage("추후 구현할 기능 입니다.")
+                        .setNegativeButton("확인", null)
+                        .show();
+            }
+        });
 
-    @Override
+        info_brand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MypageActivity.this)
+                        .setTitle("아름다움을 추천하다")
+                        .setMessage("추후 구현할 기능 입니다.")
+                        .setNegativeButton("확인", null)
+                        .show();
+            }
+        });
+
+        info_warm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MypageActivity.this)
+                        .setTitle("아름다움을 추천하다")
+                        .setMessage("추후 구현할 기능 입니다.")
+                        .setNegativeButton("확인", null)
+                        .show();
+            }
+        });
+
+        info_cool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MypageActivity.this)
+                        .setTitle("아름다움을 추천하다")
+                        .setMessage("추후 구현할 기능 입니다.")
+                        .setNegativeButton("확인", null)
+                        .show();
+            }
+        });
+
+    }   // AlertDialogs_Product
+
+    private void AlertDialogs_Webpage() {
+        info_mywebpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MypageActivity.this)
+                        .setTitle("아름다움을 추천하다")
+                        .setMessage("팀 소개 페이지 입니다.\nhttp://kelobelos.com")
+                        .setNegativeButton("확인", null)
+                        .show();
+            }
+        });
+    }       // AlertDialogs_Webpage
+
+    private void AlertDialogs_Write() {
+
+        info_write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MypageActivity.this)
+                        .setTitle("아름다움을 추천하다")
+                        .setMessage("추후 구현할 기능 입니다.")
+                        .setNegativeButton("확인", null)
+                        .show();
+            }
+        });
+
+    }       // AlertDialogs_Write
+
+    private void AlertDialogs_Back() {
+        info_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
+            }
+        });
+    }   // AlertDialogs_Back
+
+
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("아름다움을 추천하다")
@@ -313,5 +221,5 @@ public class MypageActivity extends AppCompatActivity {
                 .setNegativeButton("취소", null)
                 .show();
     }
-
 }
+

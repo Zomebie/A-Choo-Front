@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,17 @@ import android.widget.ListView;
 
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.function.adapter.ListviewAdapter;
+import com.example.turtle.project_achoo.function.model.product.LikeProductDTO;
+import com.example.turtle.project_achoo.function.model.product.LikeProductDTO_info;
 import com.example.turtle.project_achoo.function.model.product.ProductDTO;
 import com.example.turtle.project_achoo.function.model.product.ProductDTO_info;
 import com.example.turtle.project_achoo.function.service.networkService.LikeProductService;
 import com.example.turtle.project_achoo.function.service.networkService.ProductService;
 import com.example.turtle.project_achoo.function.service.networkService.RetrofitInstance;
+import com.example.turtle.project_achoo.view.home.HomeActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +38,9 @@ public class PriceFragment extends Fragment {
      String state;*/
     private SharedPreferences appData;
     private String id;
+
+    private List<LikeProductDTO> likeProductContainer = null;
+    List<String> pcodeList;
 
     // UI 요소
     private ListView listView;
@@ -68,12 +76,53 @@ public class PriceFragment extends Fragment {
 
         listView = rootView.findViewById(R.id.all_listview);
 
-        getLikePrductList(this);
+        LikeProductService();
+
+        if (likeProductContainer != null) { // 관심 상품 존재
+
+
+            getLikePrductList(this);
+
+        } else {
+
+
+        }
 
 
     }
 
-    private void getLikePrductList(PriceFragment productList){
+    private void LikeProductService() { // 관심 상품이 있는 지 확인
+
+
+        LikeProductService likeProductService = RetrofitInstance.getLikeProductService();
+        Call<ProductDTO_info> call = likeProductService.likeProductList(id);
+
+        call.enqueue(new Callback<ProductDTO_info>() {
+            @Override
+            public void onResponse(Call<ProductDTO_info> call, Response<ProductDTO_info> response) {
+                ProductDTO_info productDTO_info = response.body(); // 데이터 받아오기
+
+
+                if (productDTO_info != null && productDTO_info.getProductDTO() != null) {
+
+                    result = (ArrayList<ProductDTO>) productDTO_info.getProductDTO(); // 데이터 컨테이너에 담기
+
+                    adapter = new ListviewAdapter(getActivity(), R.layout.product, result);
+                    listView.setAdapter(adapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductDTO_info> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    private void getLikePrductList(PriceFragment productList) {
 
 
         ProductService productService = RetrofitInstance.getProductService(); // 레트로핏 객체

@@ -50,6 +50,9 @@
             android:windowSoftInputMode="stateHidden"></activity>
 
 
+
+
+
         <activity
             android:name=".view.myPage.MypageActivity"
             android:label="@string/title_activity_mypage"
@@ -80,6 +83,25 @@
             android:name=".view.detailTest.Photo.PhotoViewerActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="fullSensor"></activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.turtle.project_achoo.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+        <activity
+            android:name=".view.detailTest.Photo.PhotoViewerFaceActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="fullSensor">
+
+        </activity>
+
+        <activity android:name=".view.detailTest.DetailChoiceActivity"
+            android:theme="@android:style/Theme.Dialog"
+            ></activity>
 
         <activity android:name=".view.selfTest.Test1" />
         <activity android:name=".view.selfTest.Test2" />

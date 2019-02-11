@@ -1,37 +1,33 @@
-package com.example.turtle.project_achoo.view.myPage;
+package com.example.turtle.project_achoo.view.myPage.infoEdit;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.turtle.project_achoo.R;
 
-public class InterestingFragment extends Fragment {
+public class MbModifyActivity extends AppCompatActivity {
 
-    /*UIThread U;
+    UIThread U;
     UIHandler u;
-    String state;*/
+    String state;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
-        //u = new UIHandler();
+        u = new UIHandler();
 
-        View rootView = inflater.inflate(R.layout.fragment_interesting, container, false);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mb_modify);
 
-        /*state = "Active";
+        state = "Active";
         U = new UIThread();
-        U.start();*/
+        U.start();
+    }   // onCreate
 
-        return rootView;
-    }
-
-    /*private class UIThread extends Thread {
-        MessageHandler msg;
+    private class UIThread extends Thread {
+        Message msg;
         boolean loop = true;
 
         public void run() {
@@ -58,7 +54,7 @@ public class InterestingFragment extends Fragment {
 
     private class UIHandler extends Handler {
         @Override
-        public void handleMessage(MessageHandler msg) {
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.arg1) {
                 case 1:
@@ -78,7 +74,13 @@ public class InterestingFragment extends Fragment {
     public void onResume(){
         super.onResume();
         state = "Active";
-    }*/
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        finish();
+    }
 
 }

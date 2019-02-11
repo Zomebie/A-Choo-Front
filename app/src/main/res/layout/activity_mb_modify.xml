@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="회원정보수정"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="세션 아이디 값이 들어올것"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="비밀번호"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="기존의 비밀번호를 입력해주세요"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="신규비밀번호"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="비밀번호를 입력해주세요"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="비밀번호확인"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="이메일"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="이메일을 입력해주세요"/>
+    </TableRow>
+
+
+    <Button
+        android:layout_marginTop="25dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:fontFamily="@font/hansuwon_r"
+        android:background="#EBA4A3"
+        android:text="수정 저장"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#fafafa"/>
+
+</TableLayout>

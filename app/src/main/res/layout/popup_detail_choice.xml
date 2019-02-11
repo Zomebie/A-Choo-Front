@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border_pink">
+
+        <ImageButton
+            android:id="@+id/detail_choice_back"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:maxHeight="15dp"
+            android:maxWidth="15dp"
+            android:src="@drawable/ic_keyboard_backspace_pink_24dp"
+            android:background="#FFFFFF"/>
+
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hansuwon_r"
+            android:text="상세 진단 선택"
+            android:textSize="25dp"
+            android:textColor="#fc8d8b"
+            android:gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/detail_choice_exp"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:maxHeight="15dp"
+            android:maxWidth="15dp"
+            android:src="@drawable/ic_announcement_pink_24dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="30dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="8dp"
+                android:background="#FF7880"
+                android:gravity="center"
+                android:text="퍼스널 컬러 진단"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/parse_color"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#FF9090"
+                android:text="시작하기"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="#F4C7AA"
+                android:text="피부톤 진단"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="17sp"/>
+
+            <Button
+                android:id="@+id/skin_tone"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#FEDBBF"
+                android:text="시작하기"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

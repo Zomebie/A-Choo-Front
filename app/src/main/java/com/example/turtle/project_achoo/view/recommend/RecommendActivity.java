@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.view.detailTest.DetailActivity;
+import com.example.turtle.project_achoo.view.detailTest.DetailChoiceActivity;
 import com.example.turtle.project_achoo.view.home.HomeActivity;
 import com.example.turtle.project_achoo.view.login.MainActivity;
 import com.example.turtle.project_achoo.view.myPage.MypageActivity;
@@ -38,8 +39,6 @@ public class RecommendActivity extends AppCompatActivity {
     private ImageButton home , product, detail, community, mypage, logout_button;
     private TextView home_text;
 
-    UIThread U;
-    UIHandler u;
     String state;
 
     private String id;
@@ -47,7 +46,6 @@ public class RecommendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        u = new UIHandler();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
@@ -81,9 +79,25 @@ public class RecommendActivity extends AppCompatActivity {
         logout_button = (ImageButton) findViewById(R.id.logout_button);
         home_text = (TextView)findViewById(R.id.home_text);
 
-        state = "Active";
-        U = new UIThread();
-        U.start();
+        // 마이페이지 전환 애니메이션
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecommendActivity.this, MypageActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        // 상세진단
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecommendActivity.this, DetailChoiceActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
         logout_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,18 +159,18 @@ public class RecommendActivity extends AppCompatActivity {
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
-            case R.id.detail: intent = new Intent(this, DetailActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                break;
+//            case R.id.detail: intent = new Intent(this, DetailActivity.class);
+//                finish();
+//                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//                break;
             case  R.id.community: intent = new Intent(this, RecommendActivity.class);
                 finish();
                 overridePendingTransition(0, 0);
                 break;
-            case  R.id.mypage: intent = new Intent(this, MypageActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                break;
+//            case  R.id.mypage: intent = new Intent(this, MypageActivity.class);
+//                finish();
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                break;
             case  R.id.home_text: intent = new Intent(this, HomeActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -166,10 +180,6 @@ public class RecommendActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -214,62 +224,6 @@ public class RecommendActivity extends AppCompatActivity {
         }
     }
 
-    private class UIThread extends Thread {
-        Message msg;
-        boolean loop = true;
-
-        public void run() {
-            try {
-                while (loop) {
-                    Thread.sleep(100);
-
-                    if (Thread.interrupted()) { // 인터럽트가 들어오면 루프를 탈출
-                        loop = false;
-                        break;
-                    }
-
-                    msg = u.obtainMessage();
-                    msg.arg1 = 1;
-
-                    u.sendMessage(msg);
-                }
-            } catch (InterruptedException e) {
-                // 슬립 상태에서 인터럽트가 들어오면 익셉션 발생
-                loop = false;
-            }
-        }
-    }
-
-    private class UIHandler extends Handler {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.arg1) {
-                case 1:
-                    if (state.equals("DeActive"))   // Fragment가 숨겨진 상태일 때
-                        break;
-                    // Fragment의 UI를 변경하는 작업을 수행합니다.
-            }
-        }
-    }
-
-    public void onStop() {
-        super.onStop();
-        state = "DeActive";
-        U.interrupt();
-    }
-
-    public void onResume(){
-        super.onResume();
-        state = "Active";
-    }
-
-    //액티비티 애니메이션 없에기
-    @Override
-    protected void onPause() {
-        super.onPause();
-//        overridePendingTransition(0,0);
-    }
 
     @Override
     public void onBackPressed() {

@@ -10,9 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
+import com.example.turtle.project_achoo.view.detailTest.Photo.PhotoViewerFaceActivity;
 import com.example.turtle.project_achoo.view.login.MainActivity;
 import com.example.turtle.project_achoo.view.recommend.RecommendActivity;
 import com.example.turtle.project_achoo.view.detailTest.Photo.PhotoViewerActivity;
@@ -30,7 +32,7 @@ public class DetailActivity extends AppCompatActivity {
 
     // UI 요소
     private ImageButton home, product, detail, mypage, community, logout_button;
-    private Button detail_btn;
+    private TextView skin, personalColor;
 
 
     @Override
@@ -62,14 +64,23 @@ public class DetailActivity extends AppCompatActivity {
         mypage = findViewById(R.id.mypage);
         community = findViewById(R.id.community);
 
-        //detail_btn = findViewById(R.id.detail_btn);
-        logout_button =(ImageButton) findViewById(R.id.logout_button);
-//
-//        detail_btn.setOnClickListener(v -> {
-//            Intent intent = new Intent(getApplicationContext(), PhotoViewerActivity.class);
-//            startActivity(intent);
-//        });
+        skin = findViewById(R.id.skin);
+        personalColor = findViewById(R.id.personalColor);
 
+        logout_button = (ImageButton) findViewById(R.id.logout_button);
+
+        skin.setOnClickListener(view -> {
+            Intent intent = new Intent(DetailActivity.this, PhotoViewerFaceActivity.class);
+            startActivity(intent);
+
+        });
+
+        personalColor.setOnClickListener(view -> {
+
+            Intent intent = new Intent(DetailActivity.this, PhotoViewerActivity.class);
+            startActivity(intent);
+
+        });
 
         logout_button.setOnClickListener(new View.OnClickListener() {
             @Override

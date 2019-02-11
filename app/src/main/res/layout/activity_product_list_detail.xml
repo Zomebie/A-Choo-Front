@@ -1,23 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.product.ProductListDetail">
+   >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/border_pink">
+
+            <ImageButton
+                android:id="@+id/detail_product_back"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:maxHeight="15dp"
+                android:maxWidth="15dp"
+                android:src="@drawable/ic_keyboard_backspace_pink_24dp"
+                android:background="#FFFFFF"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/hansuwon_r"
+                android:text="제품 상세"
+                android:textSize="20sp"
+                android:textColor="#fc8d8b"
+                android:gravity="center"/>
+
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:background="@drawable/border_gray">
 
             <ImageView
                 android:id="@+id/productImage"
@@ -30,7 +63,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:background="@drawable/border_gray">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/productBrand"
@@ -39,7 +78,12 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:text="제품 브랜드"
-                android:textSize="15dp" />
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#fc8d8b" />
+
+
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/productName"
@@ -48,17 +92,19 @@
                 android:layout_margin="6dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:text="제품 이름"
-                android:textSize="15dp" />
+                android:textSize="18dp"
+                android:textColor="#fc8d8b" />
 
             <TextView
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:paddingBottom="5dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:text="제품 가격"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="18dp"
+                android:textColor="#fc8d8b" />
 
         </LinearLayout>
 
@@ -80,7 +126,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/good" />
+                android:src="@drawable/good"/>
 
         </LinearLayout>
 
@@ -101,8 +147,8 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/potopoto" />
+                android:layout_height="200dp" />
+            <!--android:src="@drawable/potopoto" -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -110,7 +156,27 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:text="리뷰"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="#fc8d8b"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left|center_horizontal"/>
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:text="글쓰기"
+                        android:background="#fc8d8b"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp"/>
+                </LinearLayout>
 
             <ListView
                 android:layout_width="match_parent"

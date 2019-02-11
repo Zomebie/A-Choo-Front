@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
+import com.example.turtle.project_achoo.function.service.networkService.ProductService;
+import com.example.turtle.project_achoo.view.detailTest.DetailChoiceActivity;
 import com.example.turtle.project_achoo.view.login.MainActivity;
 import com.example.turtle.project_achoo.view.recommend.RecommendActivity;
 import com.example.turtle.project_achoo.view.home.HomeActivity;
@@ -82,6 +84,27 @@ public class ProductActivity extends AppCompatActivity {
         state = "Active";
         U = new UIThread();
         U.start();
+
+
+        // 마이페이지 전환 애니메이션
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductActivity.this, MypageActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        // 상세진단
+        detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductActivity.this, DetailChoiceActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
         logout_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,18 +217,18 @@ public class ProductActivity extends AppCompatActivity {
                 finish();
                 overridePendingTransition(0, 0);
                 break;
-            case R.id.detail: intent = new Intent(this, DetailActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                break;
+//            case R.id.detail: intent = new Intent(this, DetailActivity.class);
+//                finish();
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                break;
             case  R.id.community: intent = new Intent(this, RecommendActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
-            case  R.id.mypage: intent = new Intent(this, MypageActivity.class);
-                finish();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                break;
+//            case  R.id.mypage: intent = new Intent(this, MypageActivity.class);
+//                finish();
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                break;
             case  R.id.home_text: intent = new Intent(this, HomeActivity.class);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

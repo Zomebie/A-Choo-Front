@@ -298,5 +298,6 @@
             android:text="저장"
             android:textColor="#fafafa"
             />
+
     </LinearLayout>
 </ScrollView>

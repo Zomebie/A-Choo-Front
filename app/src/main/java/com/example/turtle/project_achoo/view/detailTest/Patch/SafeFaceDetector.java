@@ -26,29 +26,11 @@ import com.google.android.gms.vision.face.Face;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-/**
- * This is a workaround for a bug in the face detector, in which either very small images (i.e.,
- * most images with dimension < 147) and very thin images can cause a crash in the native face
- * detection code.  This will add padding to such images before face detection in order to avoid
- * this issue.<p>
- *
- * This is not necessary for use with the camera, which doesn't ever create these types of
- * images.<p>
- *
- * This detector should wrap the underlying FaceDetector instance, like this:
- *
- * Detector<Face> safeDetector = new SafeFaceDetector(faceDetector);
- *
- * Replace all remaining occurrences of faceDetector with safeDetector.
- */
+
 public class SafeFaceDetector extends Detector<Face> {
     private static final String TAG = "SafeFaceDetector";
     private Detector<Face> mDelegate;
 
-    /**
-     * Creates a safe face detector to wrap and protect an underlying face detector from images that
-     * trigger the face detector bug.
-     */
     public SafeFaceDetector(Detector<Face> delegate) {
         mDelegate = delegate;
     }
@@ -58,10 +40,7 @@ public class SafeFaceDetector extends Detector<Face> {
         mDelegate.release();
     }
 
-    /**
-     * Determines whether the supplied image may cause a problem with the underlying face detector.
-     * If it does, padding is added to the image in order to avoid the issue.
-     */
+
     @Override
     public SparseArray<Face> detect(Frame frame) {
         final int kMinDimension = 147;
@@ -106,10 +85,7 @@ public class SafeFaceDetector extends Detector<Face> {
         return mDelegate.setFocus(id);
     }
 
-    /**
-     * Creates a new frame based on the original frame, with additional width on the right to
-     * increase the size to avoid the bug in the underlying face detector.
-     */
+
     private Frame padFrameRight(Frame originalFrame, int newWidth) {
         Frame.Metadata metadata = originalFrame.getMetadata();
         int width = metadata.getWidth();
@@ -142,10 +118,7 @@ public class SafeFaceDetector extends Detector<Face> {
                 .build();
     }
 
-    /**
-     * Creates a new frame based on the original frame, with additional height on the bottom to
-     * increase the size to avoid the bug in the underlying face detector.
-     */
+
     private Frame padFrameBottom(Frame originalFrame, int newHeight) {
         Frame.Metadata metadata = originalFrame.getMetadata();
         int width = metadata.getWidth();
@@ -164,8 +137,7 @@ public class SafeFaceDetector extends Detector<Face> {
         byte[] paddedBytes = paddedBuffer.array();
         Arrays.fill(paddedBytes, (byte) 0);
 
-        // Copy the image content from the original, without bothering to fill in the padded bottom
-        // part.
+
         for (int y = 0; y < height; ++y) {
             int origStride = origOffset + y * width;
             int paddedStride = paddedOffset + y * width;

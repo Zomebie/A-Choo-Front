@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     // UI 요소
     private EditText editText_id, editText_pw;
     private Button login_button;
+    private Button joinus_button;
     private Intent intent;
 
     // naver 로그인
@@ -72,23 +73,23 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
-        mContext=this;
+        mContext = this;
         setView();
 
     } // Oncreate
 
-   /* public static Context context() {
+    /* public static Context context() {
 
-        if (mContext == null) {
+         if (mContext == null) {
 
-            mContext = LoginActivity.context();
+             mContext = LoginActivity.context();
 
-        }
-        return mContext;
-    }
-*/
+         }
+         return mContext;
+     }
+ */
     private void setView() {
 
         appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
@@ -96,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         editText_id = findViewById(R.id.editText_id);
         editText_pw = findViewById(R.id.editText_pw);
         login_button = findViewById(R.id.login_button);
+        joinus_button = findViewById(R.id.joinus_button);
 
         mOAuthLoginButton = findViewById(R.id.buttonNaverLogin);
 
@@ -115,6 +117,11 @@ public class LoginActivity extends AppCompatActivity {
             } // validate()
         }); // login.setOnClickListener()
 
+        joinus_button.setOnClickListener(view -> {
+
+            intent = new Intent(this, JoinusActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void loginService(String id, String pw) {

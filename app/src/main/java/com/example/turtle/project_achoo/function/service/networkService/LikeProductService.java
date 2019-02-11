@@ -1,6 +1,7 @@
 package com.example.turtle.project_achoo.function.service.networkService;
 
-import com.example.turtle.project_achoo.function.model.product.LikeProductDTO_info;
+
+import com.example.turtle.project_achoo.function.model.product.ProductDTO_info;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -15,7 +16,7 @@ public interface LikeProductService {
     Call<Integer> addToCart(@Body RequestBody likeProductDTO);
 
     @GET("likeProductList")
-    Call<LikeProductDTO_info> likeProductList(@Query("id") String id);
+    Call<ProductDTO_info> likeProductList(@Query("id") String id);
 
     @POST("deleteLikeProduct")
     Call<Integer> deleteLikeProduct(@Query("id") String id);

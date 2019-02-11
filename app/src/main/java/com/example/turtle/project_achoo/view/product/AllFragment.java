@@ -47,7 +47,10 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
 
     private EditText search;
     private ListView listView;
+
     private ArrayList<ProductDTO> result = null;
+    private ArrayList<ProductDTO> result2 = null;
+
     private ListviewAdapter adapter = null;
 
     @NonNull
@@ -76,9 +79,11 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
             id = appData.getString("login_id", "defValue"); // 로그인한 아이디 가져오기
 
         }
+        result2=new ArrayList<>();
 
         search = rootView.findViewById(R.id.all_search_text);
         listView = rootView.findViewById(R.id.all_listview);
+        search = rootView.findViewById(R.id.all_search_text);
 
         // 상품 리스트 서버에 요청
         getPrductList(this);
@@ -99,7 +104,7 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
                 // input창에 문자를 입력할때마다 호출된다.
                 // search 메소드를 호출한다.
                 String text = search.getText().toString();
-                //searchFunction(text);
+                searchFunction(text);
             }
         });
 
@@ -141,35 +146,40 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
         });
     }
 
-//    private void searchFunction(String text) {
-//
-//
-//        ArrayList<ProductDTO> container = new ArrayList<>();
-//        container.addAll(result);
-//
-//        // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
-//        result.clear();
-//
-//        // 문자 입력이 없을때는 모든 데이터를 보여준다.
-//        if (text.length() == 0) {
-//
-//            result.addAll(container);
-//        }
-//        // 문자 입력을 할때..
-//        else {
-//            // 리스트의 모든 데이터를 검색한다.
-//            for (int i = 0; i < container.size(); i++) {
-//                // arraylist의 모든 데이터에 입력받은 단어(text)가 포함되어 있으면 true를 반환한다.
-//                if (container.get(i).toLowerCase().contains(text)) {
-//                    // 검색된 데이터를 리스트에 추가한다.
-//                    result.add(container.get(i));
-//                }
-//            }
-//        }
-//        // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
-//        adapter.notifyDataSetChanged();
-//
-//    }
+    private void searchFunction(String text) {
+
+        result2.addAll(result);
+
+        // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
+        result.clear();
+
+        // 문자 입력이 없을때는 모든 데이터를 보여준다.
+        if (text.length() == 0) {
+
+            result.addAll(result2);
+        }
+        // 문자 입력을 할때..
+        else {
+            // 리스트의 모든 데이터를 검색한다.
+            for (int i = 0; i < result2.size(); i++) {
+                // ProductDTO si = result2.get(i);
+
+                String brand = result2.get(i).getPbrand();
+                String name = result2.get(i).getPname();
+                Log.d("aaaa", " " + brand);
+                Log.d("aaaa", " " + text);
+
+                // arraylist의 모든 데이터에 입력받은 단어(text)가 포함되어 있으면 true를 반환한다.
+                if (brand.contains(text) || name.contains(text)) {
+                    // 검색된 데이터를 리스트에 추가한다.
+                    result.add(result2.get(i));
+                }
+            }
+        }
+        // 리스트 데이터가 변경되었으므로 아답터를 갱신하여 검색된 데이터를 화면에 보여준다.
+        adapter.notifyDataSetChanged();
+    }   // searchFunction
+
 
     public void getPrductList(AllFragment productList) {
 

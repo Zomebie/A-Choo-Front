@@ -1,18 +1,3 @@
-/*
- * Copyright (C) The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.example.turtle.project_achoo.view.detailTest.Photo;
 
 import android.Manifest;
@@ -35,19 +20,21 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
+import com.example.turtle.project_achoo.view.detailTest.Patch.SafeFaceDetector;
 import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+import com.google.android.gms.vision.face.Landmark;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,11 +45,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Demonstrates basic usage of the GMS vision face detector by running face landmark detection on a
- * photo and displaying the photo with associated landmarks in the UI.
- */
-public class PhotoViewerActivity extends Activity implements View.OnClickListener{
+public class PhotoViewerFaceActivity extends Activity implements View.OnClickListener{
     private static final String TAG = "PhotoViewerActivity";
     Button gallery, camera;
     static final int getimagesetting = 1001;//for request intent
@@ -71,196 +54,45 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
     private static final int MULTIPLE_PERMISSIONS = 101;
     static final int getCamera = 2001;
     static final int getGallery = 2002;
-    //
-    String mCurrentPhotoPath;
-    //
+
 //    FaceView faceView;
     ImageView faceImageView;
+    TextView textView;
+    Button btn_faceColor;
 
-    ImageButton ECB4B5, F19294, E31E27, E1B24E, D59B5B, A96127, D2B481, EDBB7B, c543116, DAE275, F79434, F15836, F46F37, c9AD7EC;
+    float X1;
+    float Y1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_viewer);
+        setContentView(R.layout.activity_photo_viewer_face);
         if(checkPermissions())
             init();
 
 //        faceView = findViewById(R.id.faceView);
         faceImageView = findViewById(R.id.faceImageView);
+        textView = findViewById(R.id.textView);
+        btn_faceColor = findViewById(R.id.btn_faceColor);
 
-        ECB4B5 = findViewById(R.id.ECB4B5);
-        F19294 = findViewById(R.id.F19294);
-        E31E27 = findViewById(R.id.E31E27);
-        E1B24E = findViewById(R.id.E1B24E);
-        D59B5B = findViewById(R.id.D59B5B);
-        A96127 = findViewById(R.id.A96127);
-        D2B481 = findViewById(R.id.D2B481);
-        EDBB7B = findViewById(R.id.EDBB7B);
-        c543116 = findViewById(R.id.c543116);
-        DAE275 = findViewById(R.id.DAE275);
-        F79434 = findViewById(R.id.F79434);
-        F15836 = findViewById(R.id.F15836);
-        F46F37 = findViewById(R.id.F46F37);
-        c9AD7EC = findViewById(R.id.c9AD7EC);
 
-        ECB4B5.setOnClickListener(new Button.OnClickListener() {
+        btn_faceColor.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
 
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFECB4B5);
+                int rgb = faceImageViewBitmap.getPixel((int) X1,(int) Y1);
+                int zzz = faceImageViewBitmap.getPixel(1, faceImageViewBitmap.getHeight() - 1);
+                Log.d(TAG, rgb + "!=======!" + zzz);
+
+                Bitmap b=replaceColor(faceImageViewBitmap, zzz, rgb);
 
                 faceImageView.setImageBitmap(b);
+
             }
         });
 
-        F19294.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFF19294);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-
-        E31E27.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFE31E27);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-
-        E1B24E.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFE1B24E);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        D59B5B.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFD59B5B);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        A96127.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFA96127);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        D2B481.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFD2B481);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        EDBB7B.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFEDBB7B);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        c543116.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFF543116);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        DAE275.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFDAE275);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        F79434.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFF79434);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        F15836.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFF15836);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        F46F37.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFFF46F37);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
-        c9AD7EC.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap faceImageViewBitmap = ((BitmapDrawable)faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel(1,faceImageViewBitmap.getHeight() -1);
-                Bitmap b=replaceColor(faceImageViewBitmap, rgb, 0xFF9AD7EC);
-
-                faceImageView.setImageBitmap(b);
-            }
-        });
 
     }
 
@@ -268,19 +100,19 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
         if(src == null) {
             return null;
         }
-        // Source image size
+
         int width = src.getWidth();
         int height = src.getHeight();
         int[] pixels = new int[width * height];
-        //get pixels
+
         src.getPixels(pixels, 0, width, 0, 0, width, height);
 
         for(int x = 0; x < pixels.length; ++x) {
             pixels[x] = (pixels[x] == fromColor) ? targetColor : pixels[x];
         }
-        // create result bitmap output
+
         Bitmap result = Bitmap.createBitmap(width, height, src.getConfig());
-        //set pixels
+
         result.setPixels(pixels, 0, width, 0, 0, width, height);
 
         return result;
@@ -337,24 +169,18 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
     }
 
     void run(Bitmap image){
-        Log.d("qwer", "11111111111111111111111111111");
+
         FaceDetector detector = new FaceDetector.Builder(getApplicationContext())
                 .setTrackingEnabled(false)
                 .setLandmarkType(FaceDetector.ALL_LANDMARKS)
                 .build();
-        Log.d("qwer", "222222222222222222222222222");
-        //Detector<Face> safeDetector = new SafeFaceDetector(detector);
 
-        DetectorThread detectorThread=new DetectorThread(detector ,image);
-        detectorThread.run();
+        Detector<Face> safeDetector = new SafeFaceDetector(detector);
 
-      Detector<Face> safeDetector2 = detectorThread.getDetector();
-        SparseArray<Face> faces2 = detectorThread.getfaces();
-//        Frame frame = new Frame.Builder().setBitmap(image).build();
-//        SparseArray<Face> faces = safeDetector2.detect(frame);
+        Frame frame = new Frame.Builder().setBitmap(image).build();
+        SparseArray<Face> faces = safeDetector.detect(frame);
 
-        Log.d("qwer", "33333333333333333333333333");
-        if (!safeDetector2.isOperational()) {
+        if (!safeDetector.isOperational()) {
 
             Log.w(TAG, "Face detector dependencies are not yet available.");
 
@@ -366,7 +192,7 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
                 Log.w(TAG, getString(R.string.low_storage_error));
             }
         }
-        Log.d("qwer", "44444444444444444444444444");
+
 //        FaceView overlay = (FaceView) findViewById(R.id.faceView);
 //        overlay.setContent(image, faces);
 //=============================================================================================
@@ -386,34 +212,42 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
         Rect destBounds = new Rect(0, 0, (int)(imageWidth * scale), (int)(imageHeight * scale));
         BitmapCanvas.drawBitmap(faceImageViewBitmap, null, destBounds, null);
 
-        Paint paint = new Paint();
-        paint.setColor(Color.TRANSPARENT);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
+        Paint paint2 = new Paint();
+        paint2.setColor(Color.RED);
+        paint2.setStyle(Paint.Style.STROKE);
 
         Paint paint1 = new Paint();
         paint1.setColor(Color.BLUE);
         paint1.setStyle(Paint.Style.FILL);
 
-        for (int i = 0; i < faces2.size(); ++i) {
-            Face face = faces2.valueAt(i);
-            BitmapCanvas.drawRect((float)(face.getPosition().x * scale),
-                    (float)(face.getPosition().y * scale),
-                    (float)((face.getPosition().x + face.getWidth()) * scale),
-                    (float)((face.getPosition().y + face.getHeight()) * scale),
-                    paint);
+        for (int i = 0; i < faces.size(); ++i) {
+            Face face = faces.valueAt(i);
+//            BitmapCanvas.drawRect((float)(face.getPosition().x * scale),
+//                    (float)(face.getPosition().y * scale),
+//                    (float)((face.getPosition().x + face.getWidth()) * scale),
+//                    (float)((face.getPosition().y + face.getHeight()) * scale),
+//                    paint);
             // 밑에
             BitmapCanvas.drawRect(0,
                     BitmapCanvas.getHeight(),
                     BitmapCanvas.getWidth(),
                     (float)((face.getPosition().y + face.getHeight()) * scale),
                     paint1);
-        }
-        Log.d("qwer", "555555555555555555555555555");
 
+                for (Landmark landmark : face.getLandmarks()) {
+                    int cx = (int) (landmark.getPosition().x * scale);
+                    int cy = (int) (landmark.getPosition().y * scale);
+//                    BitmapCanvas.drawCircle(cx, cy, 10, paint);
+
+                    X1 = ((((float)((face.getPosition().x + face.getWidth()) * scale) - (float)(face.getPosition().x * scale)) / 3) + (float)(face.getPosition().x * scale));
+                    Y1 = (((((float)((face.getPosition().y + face.getHeight()) * scale) - (float)(face.getPosition().y * scale)) / 3) * 2) + (float)(face.getPosition().y * scale));
+                    BitmapCanvas.drawCircle(X1, Y1, 2, paint2);
+                }
+
+        }
 
         faceImageView.setImageDrawable(new BitmapDrawable(getResources(), faceImageViewBitmap));
-        Log.d("qwer", "666666666666666666666666666");
+
 //=============================================================================
         String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/AnimationCapture";
 //        final FaceView faceView = (FaceView) findViewById(R.id.faceView);//캡쳐할영역(프레임레이아웃)
@@ -424,7 +258,7 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
             file.mkdirs();
             Toast.makeText(getApplicationContext(), "폴더가 생성되었습니다.", Toast.LENGTH_SHORT).show();
         }
-        Log.d("qwer", "7777777777777777777777777777777777");
+
         SimpleDateFormat day = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
         faceView.buildDrawingCache();
@@ -444,9 +278,9 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("qwer", "888888888888888888888888888888888");
 //=============================================================================
-        safeDetector2.release();
+
+        safeDetector.release();
     }
 
     @Override
@@ -455,7 +289,8 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
         switch (v.getId()){
 
             case R.id.camera:
-                dispatchTakePictureIntent();
+                intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, getCamera);
                 break;
 
             case R.id.gallery:
@@ -466,68 +301,17 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
         }
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-
-        return image;
-    }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.turtle.project_achoo.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, getCamera);
-            }
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bm=null;
         if(resultCode==RESULT_OK){
-
             switch(requestCode){
                 case getCamera:
-                        File file = new File(mCurrentPhotoPath);
 
-                        try {
-                            bm = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
-                            // 갤러리 이미지의 메타데이터를 받아온다.
-                            ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
-
-                            // TAG_ORIENTATION 이미지의 회전된 각도, ORIENTATION_UNDEFINED
-                            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-                            bm = rotateBitmap(bm, orientation);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    Log.d("qwer", "12341234123412341234");
+                    bm = (Bitmap) data.getExtras().get("data");
                     run(bm);
+
                     break;
 
                 case getGallery:

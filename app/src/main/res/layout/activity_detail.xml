@@ -13,7 +13,6 @@
     tools:context=".view.home.HomeActivity">
 
 
-
     <include layout="@layout/header" />
 
 
@@ -33,9 +32,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/hansuwon_r"
                 android:gravity="center"
-                android:text="자신의 피부색 진단"
+                android:text=" 피부 색 진단"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:gravity="center"
-                android:text="명확한 피부톤을 알기 위한 검사이다."
+                android:text="자신의 피부색과 톤을 알아 볼 수 있으며,"
                 android:textSize="15dp" />
 
             <TextView
@@ -53,25 +53,24 @@
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:gravity="center"
-                android:text="이를 통해, 파운데이션 구매에 도움을 준다."
+                android:text="파운데이션 구매 시 참고할 수 있습니다."
                 android:textSize="15dp" />
 
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/detail_person1" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/skin"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:text="피부 색 진단 하러가기 go →" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="140dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/detail_person1" />
-
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -79,7 +78,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:gravity="center"
-                android:text="자신과 어울리는 색 진단"
+                android:text=" 어울리는 색 진단"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -90,25 +89,24 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/hansuwon_r"
                 android:gravity="center"
-                android:text="퍼스널 컬리 진단 받는 것처럼 자신과 어울리는 색상을 찾는다."
+                android:text="자신에게 어울리는 personal color를 찾을 수 있습니다."
                 android:textSize="15dp" />
 
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/detail_person" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/personalColor"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="140dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/detail_person" />
-
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:text="나의 personal color 진단 하러가기 go →" />
 
         </LinearLayout>
 
