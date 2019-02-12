@@ -1,5 +1,6 @@
 package com.example.turtle.project_achoo.function.model.member;
 
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -35,12 +36,20 @@ public class MemberDTO {
     public MemberDTO() {
     }
 
+    public MemberDTO(String id){
+        this.id = id;
+    }
+
+    public MemberDTO(String id, Object detailT){
+        this.id = id;
+        this.detailT = detailT;
+    }
+
     public MemberDTO(String id,String pw,String nick,String email){
         this.id = id;
         this.pw = pw;
         this.nick = nick;
         this.email = email;
-
     }
     public MemberDTO(String id, String pw, String nick, String email, String selfT, Object detailT, Object priceRange, Object colorRange) {
         this.id = id;

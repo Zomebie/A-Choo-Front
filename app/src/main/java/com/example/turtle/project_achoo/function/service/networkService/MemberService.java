@@ -32,4 +32,11 @@ public interface MemberService {
     @POST("setSelfTestResult")
     Call <Integer> setSelfTestResult(@Query("selfT") String selfT, @Query("nick") String nick);
 
+    @POST("memberDetailT")
+    Call<Integer> memberDetailT(@Body RequestBody memberDTO);
+
+    @POST("info_detailtest")
+    Call<Integer> info_detailtest(@Body RequestBody memberDTO);
+
+
 }

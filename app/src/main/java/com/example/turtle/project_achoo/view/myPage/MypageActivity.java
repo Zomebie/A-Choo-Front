@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,10 +15,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.turtle.project_achoo.R;
+import com.example.turtle.project_achoo.view.home.HomeActivity;
 import com.example.turtle.project_achoo.view.login.MainActivity;
 import com.example.turtle.project_achoo.view.myPage.infoEdit.MbModifyActivity;
 import com.example.turtle.project_achoo.view.myPage.testResult.DetailResultActivity;
 import com.example.turtle.project_achoo.view.myPage.testResult.SelfResultActivity;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 
 public class MypageActivity extends AppCompatActivity {
@@ -29,7 +33,7 @@ public class MypageActivity extends AppCompatActivity {
     Button info_product, info_brand, info_warm, info_cool;  // 마이페이지 관심상품
     Button info_mywebpage;  // 웹페이지 호출
     ImageButton logout_button;  // 마이페이지 로그아웃 버튼
-    ImageButton home , product, detail, community, mypage;
+    ImageButton home, product, detail, community, mypage;
     TextView home_text;
 
     String state;
@@ -37,7 +41,6 @@ public class MypageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
 
         super.onCreate(savedInstanceState);
@@ -66,15 +69,55 @@ public class MypageActivity extends AppCompatActivity {
         info_detailtest = (Button) findViewById(R.id.info_detailtest);
 
         // 로그아웃
-        logout_button.setOnClickListener(v -> {
+        logout_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MypageActivity.this);
+                builder.setTitle("logout");
+                builder.setMessage("로그아웃 하시겠습니까?");
+                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-            SharedPreferences.Editor editor = appData.edit();
-            editor.putBoolean("login_status", false);
-            editor.commit();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+                        SharedPreferences.Editor editor = appData.edit();
+                        editor.putBoolean("login_status", false);
+                        editor.commit();
+
+                        // 카카오톡 로그아웃
+                        UserManagement.requestLogout(new LogoutResponseCallback() {
+
+                            @Override
+
+                            public void onCompleteLogout() {
+
+
+                            }
+
+                        });
+
+                        // 네이버 로그아웃
+                        /*mOAuthLoginInstance=OAuthLoginNaver.getOAuthLoginInstance(LoginActivity.mContext);
+                        mOAuthLoginInstance.logout(LoginActivity.mContext);*/
+
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+
+                        Snackbar.make(v, "로그아웃 되었습니다.", Snackbar.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.setCancelable(false);
+                builder.setIcon(R.drawable.home1);
+
+                builder.show();
+            }
         });
-
         AlertDialogs_Product();     // 마이페이지 관심 제품 클릭 이벤트
         AlertDialogs_Webpage();     // 마이페이지 웹 페이지 클릭 이벤트
         AlertDialogs_Write();       // 마이페이지 글쓰기 클릭 이벤트
@@ -200,9 +243,10 @@ public class MypageActivity extends AppCompatActivity {
         info_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
+
             }
         });
     }   // AlertDialogs_Back

@@ -1,18 +1,4 @@
-/*
- * Copyright (C) The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.example.turtle.project_achoo.view.detailTest.Photo;
 
 import android.Manifest;
@@ -58,10 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Demonstrates basic usage of the GMS vision face detector by running face landmark detection on a
- * photo and displaying the photo with associated landmarks in the UI.
- */
+
 public class PhotoViewerActivity extends Activity implements View.OnClickListener{
     private static final String TAG = "PhotoViewerActivity";
     Button gallery, camera;
@@ -74,7 +57,6 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
     //
     String mCurrentPhotoPath;
     //
-//    FaceView faceView;
     ImageView faceImageView;
 
     ImageButton ECB4B5, F19294, E31E27, E1B24E, D59B5B, A96127, D2B481, EDBB7B, c543116, DAE275, F79434, F15836, F46F37, c9AD7EC;
@@ -348,7 +330,7 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
         DetectorThread detectorThread=new DetectorThread(detector ,image);
         detectorThread.run();
 
-      Detector<Face> safeDetector2 = detectorThread.getDetector();
+        Detector<Face> safeDetector2 = detectorThread.getDetector();
         SparseArray<Face> faces2 = detectorThread.getfaces();
 //        Frame frame = new Frame.Builder().setBitmap(image).build();
 //        SparseArray<Face> faces = safeDetector2.detect(frame);
@@ -513,19 +495,19 @@ public class PhotoViewerActivity extends Activity implements View.OnClickListene
 
             switch(requestCode){
                 case getCamera:
-                        File file = new File(mCurrentPhotoPath);
+                    File file = new File(mCurrentPhotoPath);
 
-                        try {
-                            bm = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
-                            // 갤러리 이미지의 메타데이터를 받아온다.
-                            ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
+                    try {
+                        bm = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
+                        // 갤러리 이미지의 메타데이터를 받아온다.
+                        ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
 
-                            // TAG_ORIENTATION 이미지의 회전된 각도, ORIENTATION_UNDEFINED
-                            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-                            bm = rotateBitmap(bm, orientation);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        // TAG_ORIENTATION 이미지의 회전된 각도, ORIENTATION_UNDEFINED
+                        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                        bm = rotateBitmap(bm, orientation);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Log.d("qwer", "12341234123412341234");
                     run(bm);
                     break;

@@ -103,6 +103,15 @@
             android:theme="@android:style/Theme.Dialog"
             ></activity>
 
+        <activity android:name=".view.myPage.infoEdit.MbModifyActivity" />
+
+        <activity
+            android:name=".view.myPage.testResult.DetailResultActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".view.myPage.testResult.SelfResultActivity"
+            android:theme="@android:style/Theme.Dialog" />
+
         <activity android:name=".view.selfTest.Test1" />
         <activity android:name=".view.selfTest.Test2" />
         <activity android:name=".view.selfTest.Test3" />

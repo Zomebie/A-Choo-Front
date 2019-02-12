@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LipPreferenceActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="선호하는 립스틱색상을 골라주세요"
+            android:textSize="25dp"
+            android:fontFamily="@font/gabriola"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp">
+
+            <CheckBox
+                android:id="@+id/dark_cherry_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#881a2c"/>
+
+            <CheckBox
+                android:id="@+id/chili_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#cb3f3c"/>
+
+            <CheckBox
+                android:id="@+id/pumpkin_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#c84c3f"/>
+
+            <CheckBox
+                android:id="@+id/claudia_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#c66a77"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/bright_orange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#ee5f49"/>
+
+            <CheckBox
+                android:id="@+id/neon_coral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#ec5262"/>
+
+            <CheckBox
+                android:id="@+id/pink_cherry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#ce2643"/>
+
+            <CheckBox
+                android:id="@+id/pink_beige"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#ee948b"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/baby_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#e9829d"/>
+
+            <CheckBox
+                android:id="@+id/violet_rose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#af4f6e"/>
+
+            <CheckBox
+                android:id="@+id/neon_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#e83567"/>
+
+            <CheckBox
+                android:id="@+id/nude_pink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#cf989e"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/magenta_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#cb3053"/>
+
+            <CheckBox
+                android:id="@+id/burgundy_brown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#663538"/>
+
+            <CheckBox
+                android:id="@+id/vivid_purple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#972d6e"/>
+
+            <CheckBox
+                android:id="@+id/raspberry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="■ "
+                android:textSize="50dp"
+                android:textColor="#a82d4a"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lip_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="선호하는 색상"
+            android:fontFamily="@font/"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/lip_btn"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="진료 완료"
+            android:textColor="#fafafa"
+            android:textStyle="bold"
+            android:background="#fc8d8b"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</LinearLayout>

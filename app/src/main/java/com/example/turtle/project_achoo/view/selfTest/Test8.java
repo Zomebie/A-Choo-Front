@@ -5,7 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.function.service.networkService.MemberService;
@@ -18,20 +23,17 @@ import retrofit2.Response;
 
 public class Test8 extends AppCompatActivity {
 
-    private SharedPreferences appData;
-    private Intent intent;
-
-
-    private String imgtext;
-    private String color_result; //퍼스널컬러 최종값(DataBase에 저장될 최종 값)
-    private Button test_result;
+    TextView preview, next;
+    int w , c, sW, aW, sC, wC;
+    int money1, money2, money3, money4, money5, money6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test8);
 
         Intent intent = getIntent();
-        final int warm = getIntent().getIntExtra("warm", 1);
+        final int warm = getIntent().getIntExtra("warm",1);
         final int cool = getIntent().getIntExtra("cool", 1);
         final int sw = getIntent().getIntExtra("sw", 1);
         final int aw = getIntent().getIntExtra("aw", 1);
@@ -39,153 +41,82 @@ public class Test8 extends AppCompatActivity {
         final int wc = getIntent().getIntExtra("wc", 1);
         final String result = getIntent().getStringExtra("imgtext");
 
-        Log.i("test", "마지막 페이지 압니다.");
-        Log.i("test", warm + "입니다.");
-        Log.i("test", cool + "입니다.");
-        Log.i("test", sw + "입니다.");
-        Log.i("test", aw + "입니다.");
-        Log.i("test", sc + "입니다.");
-        Log.i("test", wc + "입니다.");
-        Log.i("test", result);
+        Log.i("test",warm +"입니다.");
+        Log.i("test",cool+"입니다.");
+        Log.i("test",sw+"입니다.");
+        Log.i("test",aw+"입니다.");
+        Log.i("test",sc+"입니다.");
+        Log.i("test",wc+"입니다.");
+        Log.i("test",result+"입니다.");
 
-        if (warm > cool) { // 웜톤(warm)체크갯수가 쿨톤(cool)보다 많고
-            if (sw > aw) { // 봄웜톤(sw)체크갯수가 가을웜톤(aw)보다 많으면
-                color_result = "봄 웜톤"; // color_result(최종 결과값)에 "봄 웜톤"을 저장해라
-                setContentView(R.layout.warm_spring);
-                test_result = findViewById(R.id.test_result);
-                test_result.setOnClickListener(view -> {
+        w = warm;
+        c = cool;
+        sW = sw;
+        aW = aw;
+        sC = sc;
+        wC = wc;
 
-                    postTestResult("sw");
+        preview = (TextView)findViewById(R.id.preview);
+        next =  (TextView)findViewById(R.id.next);
 
+        final RadioGroup rg7_5 = (RadioGroup)findViewById(R.id.radioGroup7_5);
 
-                });
-
-
-            } else if (aw > sw) { // 가을웜톤(aw)체크갯수가 봄웜톤(sw)보다 많으면
-                color_result = "가을 웜톤"; // color_result(최종결과값)에 "가을 웜톤"을 저장해라
-                setContentView(R.layout.warm_fall);
-                test_result = findViewById(R.id.test_result);
-                test_result.setOnClickListener(view -> {
-
-                    postTestResult("aw");
-
-
-                });
-
-            } else if (aw == sw) {// 가을웜톤(aw)랑 봄웜톤(sw)가 같으면
-                if (imgtext.equals("sw")) { // 이미지(imgtext, 7번 질문)에서 sw 이미지를 체크했으면
-                    color_result = "봄 웜톤"; // color_result(최종 결과값)에 "봄 웜톤"을 저장해라
-                    setContentView(R.layout.warm_spring);
-                    test_result = findViewById(R.id.test_result);
-                    test_result.setOnClickListener(view -> {
-
-                        postTestResult("sw");
-
-
-                    });
-
-
-                } else if (imgtext.equals("aw")) { // 이미지(imgtext, 7번 질문)에서 aw 이미지를 체크했으면
-                    color_result = "가을 웜톤"; // color_result(최종 결과값)에 "가을 웜톤"을 저장해라
-                    setContentView(R.layout.warm_fall);
-                    test_result = findViewById(R.id.test_result);
-                    test_result.setOnClickListener(view -> {
-
-                        postTestResult("aw");
-
-
-                    });
-
-                }
-            } // warm > cool 끌남
-        } else if (cool > warm) { // 쿨톤(cool)체크갯수가 웜톤(warm)보다 많고
-            if (sc > wc) { // 여름쿨톤(sc)체크갯수가 겨울쿨톤(wc)보다 많으면
-                color_result = "여름 쿨톤"; // color_result(최종 결과값)에 "여름쿨톤"을 저장해라
-                setContentView(R.layout.cool_summer);
-                test_result = findViewById(R.id.test_result);
-                test_result.setOnClickListener(view -> {
-
-                    postTestResult("sc");
-
-
-                });
-
-            } else if (wc > sc) { // 겨울쿨톤(wc)체크갯수가 여름쿨톤(sc)보다 많으면
-                color_result = "겨울 쿨톤"; // color_result(최종 결과값)에 "겨울쿨톤"을 저장해라
-                setContentView(R.layout.cool_winter);
-                test_result = findViewById(R.id.test_result);
-                test_result.setOnClickListener(view -> {
-
-                    postTestResult("wc");
-
-
-                });
-
-
-            } else if (wc == sc) { // 겨울쿨톤(wc)랑 여름쿨톤(sc)가 같으면
-                if (imgtext.equals("sc")) { // 이미지(imgtext, 7번 질문)에서 sc 이미지를 체크했으면
-                    color_result = "여름 쿨톤"; // color_result(최종 결과값)에 "여름 쿨톤"을 저장해라
-                    setContentView(R.layout.cool_summer);
-                    test_result = findViewById(R.id.test_result);
-                    test_result.setOnClickListener(view -> {
-
-                        postTestResult("sc");
-
-
-                    });
-
-                } else if (imgtext.equals("wc")) {// 이미지(imgtext, 7번 질문)에서 wc 이미지를 체크했으면
-                    color_result = "겨울 쿨톤";// color_result(최종 결과값)에 "겨울 쿨톤"을 저장해라
-                    setContentView(R.layout.cool_winter);
-                    test_result = findViewById(R.id.test_result);
-                    test_result.setOnClickListener(view -> {
-
-                        postTestResult("wc");
-
-
-                    });
-
-                }
-            }
-        }
-    }
-
-    private void postTestResult(String color_result) {
-
-        // 로그인 유지
-        appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
-
-        String nick = null;
-        if (appData.contains("login_status")) {
-
-            nick = appData.getString("login_id", "defValue"); // 로그인한 아이디 가져오기
-
-        }
-
-        MemberService memberService = RetrofitInstance.getMemberService();
-        Call<Integer> call = memberService.setSelfTestResult(color_result, nick);
-
-        call.enqueue(new Callback<Integer>() {
+        rg7_5.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                int res = response.body();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton)findViewById(checkedId);
 
-                switch (res) {
-
-                    case 1:
-                        intent = new Intent(getApplicationContext(), HomeActivity.class);
+                if(rb.isChecked()) {
+                    if (rb.getText().equals("0 원 ~ 10,000원 미만")) {
+                        money1++;
+                    } else if (rb.getText().equals("10,000원 ~ 20,000원 미만")) {
+                        money2++;
+                    } else if (rb.getText().equals("20,000 원 ~ 30,000원 미만")) {
+                        money3++;
+                    } else if (rb.getText().equals("30,000 원 ~ 40,000원 미만")) {
+                        money4++;
+                    }else if (rb.getText().equals("40,000 원 ~ 50,000원 미만")) {
+                        money5++;
+                    }else if (rb.getText().equals("50,000원 이상")) {
+                        money6++;
+                    }
+                }
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),Test9.class);
+                        intent.putExtra("warm",w);
+                        intent.putExtra("cool",c);
+                        intent.putExtra("sw",sW);
+                        intent.putExtra("aw",aW);
+                        intent.putExtra("sc",sC);
+                        intent.putExtra("wc",wC);
+                        intent.putExtra("imgtext",result);
+                        intent.putExtra("money1",money1);
+                        intent.putExtra("money2",money2);
+                        intent.putExtra("money3",money3);
+                        intent.putExtra("money4",money4);
+                        intent.putExtra("money5",money5);
+                        intent.putExtra("money6",money6);
                         startActivity(intent);
-                        break;
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-
+                    }
+                });
             }
         });
-
     }
 
+    public void onclick(View view){
+
+        Intent intent = null;
+
+        switch (view.getId()){
+
+            case R.id.preview : intent = new Intent(this, Test7.class);
+                startActivity(intent);
+                break;
+            case R.id.next :
+                Toast.makeText(getApplicationContext(),"체크해주세요,",Toast.LENGTH_LONG).show();
+                break;
+        }
+    }
 }

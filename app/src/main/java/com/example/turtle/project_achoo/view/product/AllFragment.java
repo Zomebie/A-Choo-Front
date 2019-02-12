@@ -79,7 +79,7 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
             id = appData.getString("login_id", "defValue"); // 로그인한 아이디 가져오기
 
         }
-        result2=new ArrayList<>();
+
 
         search = rootView.findViewById(R.id.all_search_text);
         listView = rootView.findViewById(R.id.all_listview);
@@ -148,7 +148,6 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
 
     private void searchFunction(String text) {
 
-        result2.addAll(result);
 
         // 문자 입력시마다 리스트를 지우고 새로 뿌려준다.
         result.clear();
@@ -200,6 +199,9 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
                 if (productDTO_info != null && productDTO_info.getProductDTO() != null) {
 
                     result = (ArrayList<ProductDTO>) productDTO_info.getProductDTO(); // 데이터 컨테이너에 담기
+
+                    result2 = new ArrayList<>();
+                    result2.addAll(result);
 
                     adapter = new ListviewAdapter(getActivity(), R.layout.product, result);
                     listView.setAdapter(adapter);

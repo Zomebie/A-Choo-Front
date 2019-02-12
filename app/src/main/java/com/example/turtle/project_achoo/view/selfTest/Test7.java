@@ -11,19 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.turtle.project_achoo.R;
-
 public class Test7 extends AppCompatActivity {
 
     private String imgtext;
     int w , c, sW, aW, sC, wC;
-    TextView complete;
+    TextView next, previous;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test7);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         final int warm = getIntent().getIntExtra("warm", 1);
         final int cool = getIntent().getIntExtra("cool", 1);
         final int sw = getIntent().getIntExtra("sw", 1);
@@ -45,11 +44,13 @@ public class Test7 extends AppCompatActivity {
         sC = sc;
         wC = wc;
 
-        complete = (TextView) findViewById(R.id.complete);
-        complete.setOnClickListener(new View.OnClickListener() {
+        previous = (TextView) findViewById(R.id.preview);
+
+        next = (TextView) findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"선택해주세요.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"체크해주세요",Toast.LENGTH_LONG).show();
             }
         });
         final RadioGroup rg6 = (RadioGroup) findViewById(R.id.radioGroup7);
@@ -78,7 +79,7 @@ public class Test7 extends AppCompatActivity {
                         wC++;
                     }
                 }
-                complete.setOnClickListener(new View.OnClickListener() {
+                next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), Test8.class);
@@ -94,5 +95,20 @@ public class Test7 extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void onclick(View view){
+
+        Intent intent = null;
+
+        switch (view.getId()){
+
+            case R.id.preview : intent = new Intent(this, Test6.class);
+                startActivity(intent);
+                break;
+            case R.id.next :
+                Toast.makeText(getApplicationContext(),"체크해주세요,",Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 }
