@@ -14,9 +14,9 @@ import com.example.turtle.project_achoo.R;
 
 public class Test2 extends AppCompatActivity {
 
-    int w , c, sW, aW, sC, wC;
-    TextView preview;
-    TextView next;
+    private int w , c, sW, aW, sC, wC;
+    private TextView preview;
+    private TextView next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class Test2 extends AppCompatActivity {
         next = (TextView)findViewById(R.id.next);
 
         final RadioGroup rg2 = (RadioGroup)findViewById(R.id.radioGroup2);
+
         //２. 원래 머리카락색과 가장 비슷한걸 골라주세요
         rg2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

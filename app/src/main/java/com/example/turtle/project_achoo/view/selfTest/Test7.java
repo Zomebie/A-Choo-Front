@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.turtle.project_achoo.R;
 public class Test7 extends AppCompatActivity {
 
-    private String imgtext;
+    private String imgtext; // 펄스널 컬러 결과
     int w , c, sW, aW, sC, wC;
     TextView next, previous;
 

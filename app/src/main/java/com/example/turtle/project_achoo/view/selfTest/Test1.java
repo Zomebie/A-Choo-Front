@@ -20,7 +20,11 @@ public class Test1 extends AppCompatActivity {
     private int aw = 0; // aw(가을웜톤)
     private int sc = 0; // sc(여름쿨톤)
     private int wc = 0; // wc(겨울쿨톤)
-    TextView next;
+
+
+    private TextView next;
+    private RadioGroup rg1;
+    private RadioButton rb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +32,12 @@ public class Test1 extends AppCompatActivity {
         setContentView(R.layout.activity_test1);
 
         next = (TextView) findViewById(R.id.next);
-        final RadioGroup rg1 = (RadioGroup)findViewById(R.id.radioGroup1);
+        rg1 = (RadioGroup)findViewById(R.id.radioGroup1);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("test","버튼 클릭클릭");
+
                 Toast.makeText(getApplicationContext(),"선택해주세요.",Toast.LENGTH_LONG).show();
             }
         });
@@ -44,7 +48,7 @@ public class Test1 extends AppCompatActivity {
             //얼굴색 피부질문 Group1(rg1)
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton rb = (RadioButton)findViewById(checkedId);
+                rb = (RadioButton)findViewById(checkedId);
 
                if(rb.isChecked()){
                    if(rb.getText().equals("노란기")){
@@ -59,6 +63,7 @@ public class Test1 extends AppCompatActivity {
                    next.setOnClickListener(new View.OnClickListener() {
                        @Override
                        public void onClick(View v) {
+
                            Intent intent = new Intent(getApplicationContext(),Test2.class);
                            intent.putExtra("warm",warm);
                            intent.putExtra("cool",cool);

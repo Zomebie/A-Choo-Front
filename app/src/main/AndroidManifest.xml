@@ -121,6 +121,8 @@
 
         <activity android:name=".view.selfTest.Test7" />
         <activity android:name=".view.selfTest.Test8" />
+        <activity android:name=".view.selfTest.Test9" />
+        <activity android:name=".view.selfTest.Test10" />
 
         <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"/>
         <!-- kakao -->

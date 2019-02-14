@@ -27,12 +27,13 @@ public class Test9 extends AppCompatActivity {
         final int sc = getIntent().getIntExtra("sc", 1);
         final int wc = getIntent().getIntExtra("wc", 1);
         final String result = getIntent().getStringExtra("imgtext");
-        final int money1 = getIntent().getIntExtra("money1",1);
-        final int money2 = getIntent().getIntExtra("money2", 1);
-        final int money3 = getIntent().getIntExtra("money3", 1);
-        final int money4 = getIntent().getIntExtra("money4", 1);
-        final int money5 = getIntent().getIntExtra("money5", 1);
-        final int money6 = getIntent().getIntExtra("money6", 1);
+        final int money=getIntent().getIntExtra("money",0);
+//        final int money1 = getIntent().getIntExtra("money1",1);
+//        final int money2 = getIntent().getIntExtra("money2", 1);
+//        final int money3 = getIntent().getIntExtra("money3", 1);
+//        final int money4 = getIntent().getIntExtra("money4", 1);
+//        final int money5 = getIntent().getIntExtra("money5", 1);
+//        final int money6 = getIntent().getIntExtra("money6", 1);
 
         Button btn = (Button)findViewById(R.id.lip_btn);
 
@@ -142,12 +143,13 @@ public class Test9 extends AppCompatActivity {
                 intent.putExtra("sc",sc);
                 intent.putExtra("wc",wc);
                 intent.putExtra("imgtext",result);
-                intent.putExtra("money1",money1);
+                intent.putExtra("money",money);
+               /* intent.putExtra("money1",money1);
                 intent.putExtra("money2",money2);
                 intent.putExtra("money3",money3);
                 intent.putExtra("money4",money4);
                 intent.putExtra("money5",money5);
-                intent.putExtra("money6",money6);
+                intent.putExtra("money6",money6);*/
                 intent.putExtra("lip",lip);
                 startActivity(intent);
             }
