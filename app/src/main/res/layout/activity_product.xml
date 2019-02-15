@@ -41,25 +41,25 @@
                         android:id="@+id/product_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="전체" />
+                        android:text="전체 제품" />
 
                     <android.support.design.widget.TabItem
                         android:id="@+id/product_warm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="웜톤" />
+                        android:text="웜톤 제품" />
 
                     <android.support.design.widget.TabItem
                         android:id="@+id/product_cool"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="쿨톤" />
+                        android:text="쿨톤 제품" />
 
                     <android.support.design.widget.TabItem
                         android:id="@+id/product_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="조회 순" />
+                        android:text="인기 제품" />
 
                 </android.support.design.widget.TabLayout>
             </android.support.design.widget.AppBarLayout>

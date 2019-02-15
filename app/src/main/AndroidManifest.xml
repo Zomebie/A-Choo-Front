@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.turtle.project_achoo"
-        android:installLocation="auto"
-        android:versionCode="1"
-        android:versionName="1" >
+    android:installLocation="auto"
+    android:versionCode="1"
+    android:versionName="1">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission." />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -39,50 +41,45 @@
             android:name=".view.login.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.product.ProductActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.detailTest.DetailActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
-
-
-
-
-
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.myPage.MypageActivity"
             android:label="@string/title_activity_mypage"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.login.LoginActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.home.HomeActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.login.JoinusActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.recommend.RecommendActivity"
             android:label="@string/title_activity_community"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.product.ProductListDetail"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.product.UserToneProductList"
-            android:windowSoftInputMode="stateHidden"></activity>
-
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".view.detailTest.Photo.PhotoViewerActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="fullSensor"></activity>
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.turtle.project_achoo.fileprovider"
@@ -90,45 +87,43 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".view.detailTest.Photo.PhotoViewerFaceActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="fullSensor">
-
-        </activity>
-
-        <activity android:name=".view.detailTest.DetailChoiceActivity"
-            android:theme="@android:style/Theme.Dialog"
-            ></activity>
-
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".view.detailTest.DetailChoiceActivity"
+            android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".view.myPage.infoEdit.MbModifyActivity" />
-
         <activity
             android:name=".view.myPage.testResult.DetailResultActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".view.myPage.testResult.SelfResultActivity"
             android:theme="@android:style/Theme.Dialog" />
-
         <activity android:name=".view.selfTest.Test1" />
         <activity android:name=".view.selfTest.Test2" />
         <activity android:name=".view.selfTest.Test3" />
         <activity android:name=".view.selfTest.Test4" />
         <activity android:name=".view.selfTest.Test5" />
         <activity android:name=".view.selfTest.Test6" />
-
         <activity android:name=".view.selfTest.Test7" />
         <activity android:name=".view.selfTest.Test8" />
         <activity android:name=".view.selfTest.Test9" />
         <activity android:name=".view.selfTest.Test10" />
 
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"/>
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="face" />
         <!-- kakao -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
+
+        <activity android:name=".view.myPage.LikeProductActivity"></activity>
     </application>
 
 </manifest>

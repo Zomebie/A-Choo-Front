@@ -20,4 +20,7 @@ public interface ProductService {
 
     @GET("productImageUrl")
     Call<Integer> getProductImageUrl(@Query("imgUrl") String imgUrl);
+
+    @GET("preferPriceProduct")
+    Call<ProductDTO_info> getPreferPriceProductList(@Query("id") String id);
 }

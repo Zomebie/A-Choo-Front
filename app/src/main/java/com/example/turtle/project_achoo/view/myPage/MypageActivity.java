@@ -9,19 +9,30 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.turtle.project_achoo.R;
-import com.example.turtle.project_achoo.view.home.HomeActivity;
+import com.example.turtle.project_achoo.function.model.member.MemberDTO;
+import com.example.turtle.project_achoo.function.service.networkService.MemberService;
+import com.example.turtle.project_achoo.function.service.networkService.RetrofitInstance;
 import com.example.turtle.project_achoo.view.login.MainActivity;
 import com.example.turtle.project_achoo.view.myPage.infoEdit.MbModifyActivity;
 import com.example.turtle.project_achoo.view.myPage.testResult.DetailResultActivity;
+import com.example.turtle.project_achoo.view.myPage.testResult.DetailTestHandlerThread;
 import com.example.turtle.project_achoo.view.myPage.testResult.SelfResultActivity;
+import com.google.gson.Gson;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MypageActivity extends AppCompatActivity {
@@ -33,11 +44,10 @@ public class MypageActivity extends AppCompatActivity {
     Button info_product, info_brand, info_warm, info_cool;  // 마이페이지 관심상품
     Button info_mywebpage;  // 웹페이지 호출
     ImageButton logout_button;  // 마이페이지 로그아웃 버튼
-    ImageButton home, product, detail, community, mypage;
-    TextView home_text;
-
-    String state;
+    //
     private String id;
+    private int RGB = 0; // 상세진단 결과
+    private String self_result; // 자가 진단 결과
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +64,9 @@ public class MypageActivity extends AppCompatActivity {
             id = appData.getString("login_id", "defValue"); // 로그인한 아이디 가져오기
 
         }
+
+        info_nickname = findViewById(R.id.info_nickname);
+        info_nickname.setText(id + "님");
 
         info_back = (ImageButton) findViewById(R.id.info_back);
         logout_button = (ImageButton) findViewById(R.id.logout_button);
@@ -118,6 +131,7 @@ public class MypageActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
         AlertDialogs_Product();     // 마이페이지 관심 제품 클릭 이벤트
         AlertDialogs_Webpage();     // 마이페이지 웹 페이지 클릭 이벤트
         AlertDialogs_Write();       // 마이페이지 글쓰기 클릭 이벤트
@@ -143,23 +157,93 @@ public class MypageActivity extends AppCompatActivity {
 
     private void ResultActivity() {
 
+
         info_selftest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MypageActivity.this, SelfResultActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                Handler handler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 0) {   // Message id 가 0 이면
+                            Intent intent = new Intent(MypageActivity.this, SelfResultActivity.class);
+                            intent.putExtra("self_result", self_result);
+                            Log.d("test", self_result + "=========================>22222222");
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        }
+                    }
+
+                };
+
+                DetailTestHandlerThread detailTestHandlerThread = new DetailTestHandlerThread(handler);  // 동기화
+
+
+                MemberService memberService = RetrofitInstance.getMemberService();
+                Call<String> call = memberService.getSelfTestResult(id);
+
+                call.enqueue(new Callback<String>() {  // 네트워크 상 String 데이터 타입
+
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.d("test", "onResponse");
+                        self_result = response.body();
+                        detailTestHandlerThread.run();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("test", "onFailure");
+                    }
+                });
+
             }
         });
+
 
         info_detailtest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MypageActivity.this, DetailResultActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                //===========================================Detail
+                Handler handler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 0) {   // Message id 가 0 이면
+                            Intent intent = new Intent(MypageActivity.this, DetailResultActivity.class);
+                            intent.putExtra("RGB", RGB);
+
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        }
+                    }
+                };
+
+                DetailTestHandlerThread detailTestHandlerThread = new DetailTestHandlerThread(handler);  // 동기화
+
+                MemberDTO memberDTO = new MemberDTO(id);
+
+                Gson gson = new Gson();
+                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(memberDTO));
+
+                MemberService memberService = RetrofitInstance.getMemberService();
+                Call<Integer> call = memberService.info_detailtest(requestBody); // memberDTO 객체를 @RequestBody로 넘겨주기
+
+                call.enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                        RGB = response.body();
+                        detailTestHandlerThread.run();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+                    }
+                });
+                //===========================================Detail
             }
         });
+
 
     }   // ResultActivity
 
@@ -168,11 +252,9 @@ public class MypageActivity extends AppCompatActivity {
         info_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(MypageActivity.this)
-                        .setTitle("아름다움을 추천하다")
-                        .setMessage("추후 구현할 기능 입니다.")
-                        .setNegativeButton("확인", null)
-                        .show();
+
+                Intent intent = new Intent(getApplicationContext(), LikeProductActivity.class);
+                startActivity(intent);
             }
         });
 

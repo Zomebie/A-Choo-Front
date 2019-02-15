@@ -220,11 +220,11 @@
                 <Button
                     android:id="@+id/info_selftest"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:background="@drawable/border_gray_right"
                     android:text="자가 진단"
-                    android:textColor="#242424"/>
+                    android:textColor="#242424" />
 
                 <Button
                     android:id="@+id/info_detailtest"

@@ -6,124 +6,162 @@
     android:id="@+id/constraintLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:fontFamily="@font/hansuwon_r"
-            android:text="회원정보수정"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            />
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="55dp"
+                android:layout_marginLeft="12dp"
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_keyboard_backspace_pink_24dp"/>
+
+            <TextView
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="36dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:textColor="#fc8d8b"
+                android:fontFamily="@font/hansuwon_r"
+                android:text="회원정보수정"
+                android:textSize="40dp"
+                />
+
+        </LinearLayout>
+
     </TableRow>
 
     <TableRow
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
+            android:id="@+id/nickname"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/hansuwon_r"
             android:text="세션 아이디 값이 들어올것"
+            android:gravity="center"
             android:textStyle="bold"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
     </TableRow>
 
     <TableRow
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="98dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hansuwon_r"
-            android:text="비밀번호"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="기존의 비밀번호를 입력해주세요"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="98dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hansuwon_r"
-            android:text="신규비밀번호"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="비밀번호를 입력해주세요"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="98dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hansuwon_r"
-            android:text="비밀번호확인"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="98dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hansuwon_r"
-            android:text="이메일"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="이메일을 입력해주세요"/>
-    </TableRow>
-
-
-    <Button
-        android:layout_marginTop="25dp"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/main_login"
+            android:drawableLeft="@drawable/join_lock"
+            android:drawableRight="@drawable/right_join"
+            android:fontFamily="@font/hansuwon_r"
+            android:gravity="left|center"
+            android:inputType="textPassword"
+            android:hint="기존 비밀번호를 입력해주세요"
+            android:textSize="15dp"/>
+
+
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
-        android:fontFamily="@font/hansuwon_r"
-        android:background="#EBA4A3"
-        android:text="수정 저장"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="#fafafa"/>
+        android:layout_height="wrap_content"
+
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/repw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_login"
+            android:drawableLeft="@drawable/join_lock"
+            android:drawableRight="@drawable/right_join"
+            android:fontFamily="@font/hansuwon_r"
+            android:gravity="left|center"
+            android:inputType="textPassword"
+            android:hint="비밀번호(6-16자 영문대소문자,숫자)"
+            android:textSize="15dp"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/pw_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_login"
+            android:drawableLeft="@drawable/join_lock"
+            android:drawableRight="@drawable/right_join"
+            android:fontFamily="@font/hansuwon_r"
+            android:gravity="left|center"
+            android:inputType="textPassword"
+            android:hint="비밀번호 확인"
+            android:textSize="15dp"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_login"
+            android:drawableLeft="@drawable/email_join"
+            android:drawableRight="@drawable/right_join"
+            android:fontFamily="@font/hansuwon_r"
+            android:gravity="left|center"
+            android:hint="이메일"
+            android:textSize="15dp"/>
+    </TableRow>
+
+
+    <TableRow
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fc8d8b"
+            android:fontFamily="@font/kopubdotumlight"
+            android:text="수정 저장"
+            android:textColor="#fafafa"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </TableRow>
 
 </TableLayout>

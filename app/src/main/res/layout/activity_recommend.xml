@@ -37,24 +37,24 @@
                         android:id="@+id/price_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="가격대" />
+                        android:text="내 펄스널 컬러 맞춤" />
                     <android.support.design.widget.TabItem
                         android:id="@+id/good_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="인기순" />
+                        android:text="내 펄스널 컬러 인기" />
 
                     <android.support.design.widget.TabItem
                         android:id="@+id/tone_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="피부톤" />
+                        android:text="선호 가격대 제품" />
 
                     <android.support.design.widget.TabItem
                         android:id="@+id/color_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="색상" />
+                        android:text="선호 색상 제품" />
 
                 </android.support.design.widget.TabLayout>
             </android.support.design.widget.AppBarLayout>

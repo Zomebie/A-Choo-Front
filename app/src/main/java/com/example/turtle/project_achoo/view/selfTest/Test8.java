@@ -68,18 +68,18 @@ public class Test8 extends AppCompatActivity {
                 RadioButton rb = (RadioButton) findViewById(checkedId);
 
                 if (rb.isChecked()) {
-                    if (rb.getText().equals("0 원 ~ 10,000원 미만")) {
-                        money++;
-                    } else if (rb.getText().equals("10,000원 ~ 20,000원 미만")) {
-                        money++;
-                    } else if (rb.getText().equals("20,000 원 ~ 30,000원 미만")) {
-                        money++;
-                    } else if (rb.getText().equals("30,000 원 ~ 40,000원 미만")) {
-                        money++;
-                    } else if (rb.getText().equals("40,000 원 ~ 50,000원 미만")) {
-                        money++;
+                    if (rb.getText().equals("0 원 ~ 10,000원 ")) {
+                        money=1;
+                    } else if (rb.getText().equals("10,000원 ~ 20,000원 ")) {
+                        money=2;
+                    } else if (rb.getText().equals("20,000 원 ~ 30,000원 ")) {
+                        money=3;
+                    } else if (rb.getText().equals("30,000 원 ~ 40,000원 ")) {
+                        money=4;
+                    } else if (rb.getText().equals("40,000 원 ~ 50,000원 ")) {
+                        money=5;
                     } else if (rb.getText().equals("50,000원 이상")) {
-                        money++;
+                        money=6;
                     }
                 }
                 next.setOnClickListener(new View.OnClickListener() {
