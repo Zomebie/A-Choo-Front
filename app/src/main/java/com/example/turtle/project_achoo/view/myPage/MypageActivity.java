@@ -17,8 +17,10 @@ import android.widget.TextView;
 
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.function.model.member.MemberDTO;
+import com.example.turtle.project_achoo.function.model.member.SelfTestResultDTO;
 import com.example.turtle.project_achoo.function.service.networkService.MemberService;
 import com.example.turtle.project_achoo.function.service.networkService.RetrofitInstance;
+import com.example.turtle.project_achoo.view.home.HomeActivity;
 import com.example.turtle.project_achoo.view.login.MainActivity;
 import com.example.turtle.project_achoo.view.myPage.infoEdit.MbModifyActivity;
 import com.example.turtle.project_achoo.view.myPage.testResult.DetailResultActivity;
@@ -180,22 +182,22 @@ public class MypageActivity extends AppCompatActivity {
 
 
                 MemberService memberService = RetrofitInstance.getMemberService();
-                Call<String> call = memberService.getSelfTestResult(id);
+                Call<SelfTestResultDTO> call = memberService.getSelfTestResult(id);
 
-                call.enqueue(new Callback<String>() {  // 네트워크 상 String 데이터 타입
+               call.enqueue(new Callback<SelfTestResultDTO>() {
+                   @Override
+                   public void onResponse(Call<SelfTestResultDTO> call, Response<SelfTestResultDTO> response) {
+                       SelfTestResultDTO selfTestResultDTO=response.body();
+                       self_result=selfTestResultDTO.getSelfTestResult();
+                       Log.d(HomeActivity.TAG,self_result);
+                       detailTestHandlerThread.run();
+                   }
 
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        Log.d("test", "onResponse");
-                        self_result = response.body();
-                        detailTestHandlerThread.run();
-                    }
+                   @Override
+                   public void onFailure(Call<SelfTestResultDTO> call, Throwable t) {
 
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Log.d("test", "onFailure");
-                    }
-                });
+                   }
+               });
 
             }
         });

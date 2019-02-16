@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 public class RetrofitInstance {
 
 
-    private static String BASE_URL = "http://192.168.0.24:4000/";
+    private static String BASE_URL = "http://172.30.8.241:4000/";
     private static Retrofit retrofit=null;
 
 

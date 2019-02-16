@@ -50,10 +50,6 @@ public class Test10 extends AppCompatActivity {
         lip_result = lip;
         imgtext = result;
 
-        Log.d("test", money+" 돈돈돈돈ㄷ");
-        Log.d("test", money_result+" 돈돈돈돈ㄷ");
-
-
         if (warm > cool) { // 웜톤(warm)체크갯수가 쿨톤(cool)보다 많고
             if (sw > aw) { // 봄웜톤(sw)체크갯수가 가을웜톤(aw)보다 많으면
                // color_result = "봄 웜톤"; // color_result(최종 결과값)에 "봄 웜톤"을 저장해라

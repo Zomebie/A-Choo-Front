@@ -1,6 +1,7 @@
 package com.example.turtle.project_achoo.function.service.networkService;
 
 import com.example.turtle.project_achoo.function.model.member.MemberDTO;
+import com.example.turtle.project_achoo.function.model.member.SelfTestResultDTO;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -34,7 +35,7 @@ public interface MemberService {
     Call <Integer> setSelfTestResult(@Query("selfT") String selfT, @Query("nick") String nick, @Query("money") int money, @Query("lipColor") String lip);
 
     @GET("getSelfTestResult")
-    Call<String> getSelfTestResult(@Query("id") String id);
+    Call<SelfTestResultDTO> getSelfTestResult(@Query("id") String id);
 
     @POST("memberDetailT")
     Call<Integer> memberDetailT(@Body RequestBody memberDTO);
