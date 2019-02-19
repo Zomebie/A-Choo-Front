@@ -43,17 +43,15 @@ public class ProductDTO {
     private String ptone;
     @SerializedName("pcolorCode")
     @Expose
-    private Object pcolorCode;
+    private String pcolorCode;
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public ProductDTO() {
     }
 
     /**
-     *
      * @param pcolorCode
      * @param swHits
      * @param pprice
@@ -68,7 +66,7 @@ public class ProductDTO {
      * @param pbrand
      * @param pimg
      */
-    public ProductDTO(Integer swHits, Integer awHits, Integer scHits, Integer wcHits, Integer totalHits, String pcode, String pbrand, String pimg, String pname, String pprice, String pcolor, String ptone, Object pcolorCode) {
+    public ProductDTO(Integer swHits, Integer awHits, Integer scHits, Integer wcHits, Integer totalHits, String pcode, String pbrand, String pimg, String pname, String pprice, String pcolor, String ptone, String pcolorCode) {
         super();
         this.swHits = swHits;
         this.awHits = awHits;
@@ -181,11 +179,11 @@ public class ProductDTO {
         this.ptone = ptone;
     }
 
-    public Object getPcolorCode() {
+    public String getPcolorCode() {
         return pcolorCode;
     }
 
-    public void setPcolorCode(Object pcolorCode) {
+    public void setPcolorCode(String pcolorCode) {
         this.pcolorCode = pcolorCode;
     }
 

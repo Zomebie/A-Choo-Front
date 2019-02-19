@@ -139,6 +139,8 @@ public class AllFragment extends Fragment implements AbsListView.OnScrollListene
                 intent.putExtra("Pbrand", result.get(position).getPbrand());
                 intent.putExtra("Pname", result.get(position).getPname());
                 intent.putExtra("Pprice", result.get(position).getPprice());
+                intent.putExtra("Pcolor",result.get(position).getPcolor());
+                intent.putExtra("PcolorCode",result.get(position).getPcolorCode());
 
 
                 startActivity(intent);

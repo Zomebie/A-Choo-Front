@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -36,10 +37,12 @@ public class HomeActivity extends AppCompatActivity {
 
     public static OAuthLogin mOAuthLoginInstance;
 
+    //광고 슬라이드 부분
+    HomeAdapter homeAdapter;
+    ViewPager viewPager;
 
     // UI 요소
     private ImageButton home, product, detail, community, mypage, logout_button;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,12 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        ////광고 슬라이드 시작////
+        viewPager =  findViewById(R.id.view);
+        homeAdapter = new HomeAdapter(this);
+        viewPager.setAdapter(homeAdapter);
+        ////광고 슬라이드 끝////
 
 
         setView();

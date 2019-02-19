@@ -2,10 +2,14 @@ package com.example.turtle.project_achoo.view.product;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,15 +36,25 @@ public class ProductListDetail extends AppCompatActivity {
     private SharedPreferences appData;
 
     private ImageView productImage, likeIt;
-    private TextView productBrand, productName, productPrice;
-
+    private TextView productBrand, productName, productPrice, productColor, productColorCode;
+    private ImageButton detail_product_back;
     private Intent intent;
-    private String pImg, pBrand, pName, pPrice, pCode, id;
+    private String pImg, pBrand, pName, pPrice, pCode, id, pColor, pColorCode;
+
+    //광고 슬라이드 부분
+    ProductDetailAdapter productDetailAdapter;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list_detail);
+
+        ////광고 슬라이드 시작////
+        viewPager = (ViewPager) findViewById(R.id.pdview);
+        productDetailAdapter = new ProductDetailAdapter(this);
+        viewPager.setAdapter(productDetailAdapter);
+        ////광고 슬라이드 끝////
 
         setView();
 
@@ -57,10 +71,13 @@ public class ProductListDetail extends AppCompatActivity {
 
         }
 
+        detail_product_back = findViewById(R.id.detail_product_back);
         productImage = findViewById(R.id.productImage);
         productBrand = findViewById(R.id.productBrand);
         productName = findViewById(R.id.productName);
         productPrice = findViewById(R.id.productPrice);
+        productColor = findViewById(R.id.productColor);
+        productColorCode = findViewById(R.id.productColorCode);
         likeIt = findViewById(R.id.likeIt);
 
         intent = getIntent();
@@ -69,6 +86,8 @@ public class ProductListDetail extends AppCompatActivity {
         pBrand = intent.getStringExtra("Pbrand");
         pName = intent.getStringExtra("Pname");
         pPrice = intent.getStringExtra("Pprice");
+        pColor = intent.getStringExtra("Pcolor");
+        pColorCode = intent.getStringExtra("PcolorCode");
 
         //new DownloadImageTask(productImage).execute(pImg);
         String img_url = "http://192.168.0.24:4000/static/images/" + pImg;
@@ -77,7 +96,20 @@ public class ProductListDetail extends AppCompatActivity {
         productBrand.setText(pBrand);
         productName.setText(pName);
         productPrice.setText(pPrice);
+        productColor.setText(pColor);
+        productColorCode.setBackgroundColor(Color.parseColor(pColorCode));
 
+        productColorCode.setTextColor(Color.parseColor(pColorCode));
+
+        detail_product_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
+
+            }
+        });
         //좋아요 누르면 관심 상품에 추가 like_product
         likeIt.setOnClickListener(v -> {
 
