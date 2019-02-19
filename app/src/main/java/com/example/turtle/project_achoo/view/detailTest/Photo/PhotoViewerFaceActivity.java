@@ -26,6 +26,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +60,6 @@ import retrofit2.Response;
 
 public class PhotoViewerFaceActivity extends Activity implements View.OnClickListener {
     private static final String TAG = "PhotoViewerActivity";
-    Button gallery, camera;
     static final int getimagesetting = 1001;//for request intent
     private String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
             , Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -69,26 +69,33 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
     //
     String mCurrentPhotoPath;
     //
-    ImageView faceImageView;
+    ImageView faceImageView, skintone_color;
     TextView textView;
-    Button btn_faceColor;
+
+    ImageButton btn_faceColor, back, gallery, camera;
 
     float X1;
     float Y1;
 
+    private TextView face;
     private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_viewer_face);
+
         if (checkPermissions())
             init();
 
 //        faceView = findViewById(R.id.faceView);
         faceImageView = findViewById(R.id.faceImageView);
-        textView = findViewById(R.id.textView);
-        btn_faceColor = findViewById(R.id.btn_faceColor);
+        skintone_color = findViewById(R.id.skintone_color);
+       // textView = findViewById(R.id.textView);
+//        btn_faceColor = findViewById(R.id.btn_faceColor);
+        back = findViewById(R.id.back);
+
+        Skintone_back();
 
         SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE); // SharedPreferences 객체 가져오기
 
@@ -98,53 +105,67 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
 
         }
 
-        btn_faceColor.setOnClickListener(new Button.OnClickListener() {
+        face=findViewById(R.id.face);
+        face.setText(id+"님의 얼굴 피부 색은?");
+
+//        btn_faceColor.setOnClickListener(new Button.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Bitmap faceImageViewBitmap = ((BitmapDrawable) faceImageView.getDrawable()).getBitmap();
+//
+//                int rgb = faceImageViewBitmap.getPixel((int) X1, (int) Y1);
+//                int zzz = faceImageViewBitmap.getPixel(1, faceImageViewBitmap.getHeight() - 1);
+//                Log.d(TAG, rgb + "!=======!" + zzz);
+//
+//                //==============================================================추가 시작
+//                MemberDTO memberDTO = new MemberDTO(id, rgb);
+//
+//                Gson gson = new Gson();
+//                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(memberDTO));
+//
+//                MemberService memberService = RetrofitInstance.getMemberService();
+//                Call<Integer> call = memberService.memberDetailT(requestBody); // memberDTO 객체를 @RequestBody로 넘겨주기
+//
+//
+//                call.enqueue(new Callback<Integer>() {
+//                    @Override
+//                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+//
+//                        int result = response.body();
+//                        switch (result) {
+//                            case 1: {
+//                                break;
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Integer> call, Throwable t) {
+//                    }
+//                });
+//                //==============================================================추가 끝
+//
+//                Bitmap b = replaceColor(faceImageViewBitmap, zzz, rgb);
+//
+//                skintone_color.setBackgroundColor(rgb);
+//
+//                faceImageView.setImageBitmap(b);
+//
+//            }
+//        });
+    }   // onCreate
+
+    private void Skintone_back() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                Bitmap faceImageViewBitmap = ((BitmapDrawable) faceImageView.getDrawable()).getBitmap();
-
-                int rgb = faceImageViewBitmap.getPixel((int) X1, (int) Y1);
-                int zzz = faceImageViewBitmap.getPixel(1, faceImageViewBitmap.getHeight() - 1);
-                Log.d(TAG, rgb + "!=======!" + zzz);
-                Log.d(TAG, id + "!=======!" + id);
-                //==============================================================추가 시작
-                MemberDTO memberDTO = new MemberDTO(id, rgb);
-
-                Gson gson = new Gson();
-                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(memberDTO));
-
-                MemberService memberService = RetrofitInstance.getMemberService();
-                Call<Integer> call = memberService.memberDetailT(requestBody); // memberDTO 객체를 @RequestBody로 넘겨주기
-
-
-                call.enqueue(new Callback<Integer>() {
-                    @Override
-                    public void onResponse(Call<Integer> call, Response<Integer> response) {
-
-                        int result = response.body();
-                        switch (result) {
-                            case 1: {
-                                break;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Integer> call, Throwable t) {
-                    }
-                });
-                //==============================================================추가 끝
-
-                Bitmap b = replaceColor(faceImageViewBitmap, zzz, rgb);
-
-                faceImageView.setImageBitmap(b);
-
+            public void onClick(View v) {
+                onBackPressed();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
             }
         });
-
-
-    }
+    }   // Skintone_back
 
     public Bitmap replaceColor(Bitmap src, int fromColor, int targetColor) {
         if (src == null) {
@@ -166,7 +187,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
         result.setPixels(pixels, 0, width, 0, 0, width, height);
 
         return result;
-    }
+    }   // replaceColor
 
     private boolean checkPermissions() {
         int result;
@@ -182,7 +203,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
             return false;
         }
         return true;
-    }
+    }   // checkPermissions
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -204,19 +225,19 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
                 }
             }
         }
-    }
+    }   // onRequestPermissionsResult
 
     private void showNoPermissionToastAndFinish() {
         Toast.makeText(this, getString(R.string.limit), Toast.LENGTH_SHORT).show();
         init();
-    }
+    }   // showNoPermissionToastAndFinish
 
     void init() {
         gallery = findViewById(R.id.gallery);
         gallery.setOnClickListener(this);
         camera = findViewById(R.id.camera);
         camera.setOnClickListener(this);
-    }
+    }   // init
 
     void run(Bitmap image) {
 
@@ -278,11 +299,11 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
 //                    (float)((face.getPosition().y + face.getHeight()) * scale),
 //                    paint);
             // 밑에
-            BitmapCanvas.drawRect(0,
-                    BitmapCanvas.getHeight(),
-                    BitmapCanvas.getWidth(),
-                    (float) ((face.getPosition().y + face.getHeight()) * scale),
-                    paint1);
+//            BitmapCanvas.drawRect(0,
+//                    BitmapCanvas.getHeight(),
+//                    BitmapCanvas.getWidth(),
+//                    (float)((face.getPosition().y + face.getHeight()) * scale),
+//                    paint1);
 
             for (Landmark landmark : face.getLandmarks()) {
                 int cx = (int) (landmark.getPosition().x * scale);
@@ -297,6 +318,50 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
         }
 
         faceImageView.setImageDrawable(new BitmapDrawable(getResources(), faceImageViewBitmap));
+
+        //????????????????????????????????????????
+
+        faceImageViewBitmap = ((BitmapDrawable) faceImageView.getDrawable()).getBitmap();
+
+        int rgb = faceImageViewBitmap.getPixel((int) X1, (int) Y1);
+        int zzz = faceImageViewBitmap.getPixel(1, faceImageViewBitmap.getHeight() - 1);
+        Log.d(TAG, rgb + "!=======!" + zzz);
+
+        //==============================================================추가 시작
+        MemberDTO memberDTO = new MemberDTO(id, rgb);
+
+        Gson gson = new Gson();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), gson.toJson(memberDTO));
+
+        MemberService memberService = RetrofitInstance.getMemberService();
+        Call<Integer> call = memberService.memberDetailT(requestBody); // memberDTO 객체를 @RequestBody로 넘겨주기
+
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                int result = response.body();
+                switch (result) {
+                    case 1: {
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+            }
+        });
+        //==============================================================추가 끝
+
+        Bitmap b = replaceColor(faceImageViewBitmap, zzz, rgb);
+
+        skintone_color.setBackgroundColor(rgb);
+
+        faceImageView.setImageBitmap(b);
+
+        //????????????????????????????????????????
 
 //=============================================================================
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AnimationCapture";
@@ -331,7 +396,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
 //=============================================================================
 
         safeDetector.release();
-    }
+    }   // run
 
     @Override
     public void onClick(View v) {
@@ -348,7 +413,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
                 startActivityForResult(intent, getGallery);
                 break;
         }
-    }
+    }   // onClick
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -365,7 +430,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
         mCurrentPhotoPath = image.getAbsolutePath();
 
         return image;
-    }
+    }   // createImageFile
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -387,7 +452,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
                 startActivityForResult(takePictureIntent, getCamera);
             }
         }
-    }
+    }   // dispatchTakePictureIntent
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -445,7 +510,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
                     break;
             }
         }
-    }
+    }   // onActivityResult
 
     private String getRealPathFromURI(Uri contentURI) {
 
@@ -463,7 +528,7 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
         }
 
         return result;
-    }
+    }   // getRealPathFromURI
 
     public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
 
@@ -506,5 +571,12 @@ public class PhotoViewerFaceActivity extends Activity implements View.OnClickLis
             e.printStackTrace();
             return null;
         }
-    }
+    }   // rotateBitmap
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        finish();
+    }   // onBackPressed
 }

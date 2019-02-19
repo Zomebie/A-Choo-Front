@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
@@ -41,25 +42,51 @@ public class ProductListDetail extends AppCompatActivity {
     private Intent intent;
     private String pImg, pBrand, pName, pPrice, pCode, id, pColor, pColorCode;
 
-    //광고 슬라이드 부분
+    /*//광고 슬라이드 부분
     ProductDetailAdapter productDetailAdapter;
-    ViewPager viewPager;
+    ViewPager viewPager;*/
+
+    ViewFlipper viewFlipper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list_detail);
 
-        ////광고 슬라이드 시작////
+        /*////광고 슬라이드 시작////
         viewPager = (ViewPager) findViewById(R.id.pdview);
         productDetailAdapter = new ProductDetailAdapter(this);
         viewPager.setAdapter(productDetailAdapter);
-        ////광고 슬라이드 끝////
+        ////광고 슬라이드 끝////*/
 
+        int images[] = {
+
+                R.drawable.ad4,
+                R.drawable.ad5,
+                R.drawable.potopoto
+        };
+
+        viewFlipper = findViewById(R.id.detail_slider);
+
+        for(int image : images) {
+            fllipperImages(image);
+        }
         setView();
 
+    } //onCreate
 
-    } // onCreate
+    public void fllipperImages(int image) {
+        ImageView imageView = new ImageView(this);
+        imageView.setBackgroundResource(image);
+
+        viewFlipper.addView(imageView);      // 이미지 추가
+        viewFlipper.setFlipInterval(3000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
+        viewFlipper.setAutoStart(true);          // 자동 시작 유무 설정
+
+        // animation
+        viewFlipper.setInAnimation(this,android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(this,android.R.anim.slide_out_right);
+    }
 
     private void setView() {
 

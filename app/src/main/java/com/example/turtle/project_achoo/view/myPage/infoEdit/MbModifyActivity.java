@@ -67,6 +67,7 @@ public class MbModifyActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         save = findViewById(R.id.save);
 
+        nickname.setText(id +"님");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

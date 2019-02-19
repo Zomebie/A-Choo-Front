@@ -24,50 +24,90 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="얼굴색은?" />
-
-        <Button
-            android:id="@+id/btn_faceColor"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="얼굴색" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/face"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:textStyle="bold"
+                android:text=" 얼굴 피부 색은?" />
+
+            <ImageView
+                android:id="@+id/skintone_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+            <!--android:layout_weight="1"-->
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="12dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/ic_keyboard_backspace_pink_24dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/gallery"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/ic_photo_pink_24dp"/>
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/camera"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/ic_camera_pink_24dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"/>
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1.5" />
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/btn_faceColor"-->
+            <!--android:layout_width="44dp"-->
+            <!--android:layout_height="44dp"-->
+            <!--android:layout_marginRight="12dp"-->
+            <!--android:background="@drawable/ic_format_color_fill_pink_24dp"/>-->
+
+        </LinearLayout>
 
     </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <Button
-            android:id="@+id/gallery"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Gallery" />
-
-        <Button
-            android:id="@+id/camera"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Camera" />
-
-
-
-    </LinearLayout>
-
 
 </LinearLayout>

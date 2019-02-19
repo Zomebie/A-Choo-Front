@@ -239,15 +239,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:src="@drawable/potopoto" />-->
-            <view
+            <!--<view
                 android:id="@+id/pdview"
                 class="android.support.v4.view.ViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp" />-->
 
+            <ViewFlipper
+                android:id="@+id/detail_slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"/>
 
         </LinearLayout>
     </LinearLayout>

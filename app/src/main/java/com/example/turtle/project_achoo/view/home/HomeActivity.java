@@ -11,8 +11,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.example.turtle.project_achoo.R;
 import com.example.turtle.project_achoo.function.service.loginService.OAuthLoginNaver;
@@ -37,9 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public static OAuthLogin mOAuthLoginInstance;
 
-    //광고 슬라이드 부분
-    HomeAdapter homeAdapter;
-    ViewPager viewPager;
+    ViewFlipper viewFlipper;
 
     // UI 요소
     private ImageButton home, product, detail, community, mypage, logout_button;
@@ -51,15 +51,36 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        ////광고 슬라이드 시작////
-        viewPager =  findViewById(R.id.view);
-        homeAdapter = new HomeAdapter(this);
-        viewPager.setAdapter(homeAdapter);
-        ////광고 슬라이드 끝////
+        int images[] = {
+                R.drawable.ad6,
+                R.drawable.ad1,
+                R.drawable.ad2,
+                R.drawable.ad3,
+                R.drawable.ad4,
+                R.drawable.ad5
+        };
 
+        viewFlipper = findViewById(R.id.image_slider);
+
+        for(int image : images) {
+            fllipperImages(image);
+        }
 
         setView();
 
+    }
+
+    public void fllipperImages(int image) {
+        ImageView imageView = new ImageView(this);
+        imageView.setBackgroundResource(image);
+
+        viewFlipper.addView(imageView);      // 이미지 추가
+        viewFlipper.setFlipInterval(3000);       // 자동 이미지 슬라이드 딜레이시간(1000 당 1초)
+        viewFlipper.setAutoStart(true);          // 자동 시작 유무 설정
+
+        // animation
+        viewFlipper.setInAnimation(this,android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(this,android.R.anim.slide_out_right);
     }
 
     private void setView() {

@@ -2,484 +2,215 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    tools:context=".view.detailTest.Photo.PhotoViewerActivity">
+    android:orientation="vertical">
 
     <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="7">
-
-    <!--<com.google.android.gms.samples.vision.face.photo.FaceView
-        android:id="@+id/faceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />-->
+        android:layout_height="0dp"
+        android:layout_weight="7">
 
-    <ImageView
-        android:id="@+id/faceImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <!--<com.google.android.gms.samples.vision.face.photo.FaceView-->
+        <!--android:id="@+id/faceView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="invisible" />-->
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/faceImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="2">-->
+
+    <!--</LinearLayout>-->
+
+    <include android:id="@+id/bfilter"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/parse_spring"
+        />
+
+    <include android:id="@+id/yfilter"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/parse_summer"
+        />
+
+    <include android:id="@+id/gfilter"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/parse_fall"
+        />
+
+    <include android:id="@+id/wfilter"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        layout="@layout/parse_winter"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+        <!--android:layout_weight="1"-->
 
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:scrollbars="none">
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/ic_keyboard_backspace_pink_24dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/gallery"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/ic_photo_pink_24dp"/>
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/camera"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/ic_camera_pink_24dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"/>
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1.1" />
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:orientation="vertical"
+            android:layout_gravity="right">
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="2"-->
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:orientation="horizontal">
+                <!--android:layout_weight="1"-->
+
+                <Button
+                    android:id="@+id/spring_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="0.5"
+                    android:text="봄"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#FC8D8B"
+                    android:background="#FAFAFA"/>
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+
+                <Button
+                    android:id="@+id/summer_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="0.5"
+                    android:text="여름"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#FC8D8B"
+                    android:background="#FAFAFA"/>
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="30"
-                        android:inputType="textPersonName"
-                        android:text="봄" />
-
-                    <ImageButton
-                        android:id="@+id/ECB4B5"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#ECB4B5" />
-
-                    <ImageButton
-                        android:id="@+id/F19294"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F19294" />
-
-                    <ImageButton
-                        android:id="@+id/E31E27"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#E31E27" />
-
-                    <ImageButton
-                        android:id="@+id/E1B24E"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#E1B24E" />
-
-                    <ImageButton
-                        android:id="@+id/D59B5B"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#D59B5B" />
-
-                    <ImageButton
-                        android:id="@+id/A96127"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#A96127" />
-
-                    <ImageButton
-                        android:id="@+id/D2B481"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#D2B481" />
-
-                    <ImageButton
-                        android:id="@+id/EDBB7B"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#EDBB7B" />
-
-                    <ImageButton
-                        android:id="@+id/c543116"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#543116" />
-
-                    <ImageButton
-                        android:id="@+id/DAE275"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#DAE275" />
-
-                    <ImageButton
-                        android:id="@+id/F79434"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F79434" />
-
-                    <ImageButton
-                        android:id="@+id/F15836"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F15836" />
-
-                    <ImageButton
-                        android:id="@+id/F46F37"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F46F37" />
-
-                    <ImageButton
-                        android:id="@+id/c9AD7EC"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#9AD7EC" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="30"
-                        android:inputType="textPersonName"
-                        android:text="여름" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#FAD2DD" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F9A5C7" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F367A2" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F34161" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#FFF6A9" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#BAE0C5" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#018659" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#2C645C" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#A7C8EB" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#70A4D4" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#4C6BAE" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#586F8E" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#325889" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#AA9DCB" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="30"
-                        android:inputType="textPersonName"
-                        android:text="가을" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F4C7AA" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F48F8F" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#C72028" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#8A171A" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#B55427" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#971A20" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#FED653" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F2A732" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#D0DE92" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#689741" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#58602B" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#A3C0CB" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#4A83A3" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#135E6C" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="5dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="30"
-                        android:inputType="textPersonName"
-                        android:text="겨울" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F4D8E6" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#F15199" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#EE0383" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#B31E3A" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#720C24" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#FAEE2A" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#1AAD5C" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#0D8F53" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#154F48" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#E2F0FB" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#159FCD" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#1B489C" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#3B2D7C" />
-
-                    <ImageButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#120D43" />
-
-                </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal">
 
-        </HorizontalScrollView>
+                <Button
+                    android:id="@+id/fall_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:text="가을"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#FC8D8B"
+                    android:background="#FAFAFA"/>
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+
+                <Button
+                    android:id="@+id/winter_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:text="겨울"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#FC8D8B"
+                    android:background="#FAFAFA"/>
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!--<ImageButton-->
+        <!--android:id="@+id/filter"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:background="@drawable/ic_more_horiz_pink_24dp"/>-->
+
+        <!--<Button-->
+        <!--android:id="@+id/gallery"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="Gallery" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/camera"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="Camera" />-->
 
     </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <Button
-            android:id="@+id/gallery"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Gallery" />
-
-        <Button
-            android:id="@+id/camera"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Camera" />
-
-
-
-    </LinearLayout>
-
 
 </LinearLayout>

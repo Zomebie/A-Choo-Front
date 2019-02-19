@@ -81,7 +81,7 @@
             android:drawableRight="@drawable/right_join"
             android:fontFamily="@font/hansuwon_r"
             android:gravity="left|center"
-            android:password="true"
+            android:inputType="textPassword"
             android:hint="비밀번호(6-16자 영문대소문자,숫자)"
             android:textSize="15dp"/>
 
@@ -95,7 +95,7 @@
             android:drawableRight="@drawable/right_join"
             android:fontFamily="@font/hansuwon_r"
             android:gravity="left|center"
-            android:password="true"
+            android:inputType="textPassword"
             android:hint="비밀번호 확인"
             android:textSize="15dp"/>
 

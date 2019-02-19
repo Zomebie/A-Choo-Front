@@ -18,14 +18,11 @@
         android:layout_height="match_parent"
         android:background="#ffffff">
 
-        <view
-            android:id="@+id/view"
-            android:layout_marginTop="40dp"
-            class="android.support.v4.view.ViewPager"
+        <ViewFlipper
+            android:id="@+id/image_slider"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
+            android:layout_marginTop="30dp"/>
 
         <include layout="@layout/footer" />
 
