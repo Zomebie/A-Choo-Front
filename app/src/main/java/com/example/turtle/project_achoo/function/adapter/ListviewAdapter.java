@@ -66,7 +66,7 @@ public class ListviewAdapter extends BaseAdapter {
         //new DownloadImageTask(product_image).execute(listviewitem.getPimg());
 
         // Glide lib
-        String img_url = "http://192.168.0.24:4000/static/images/" + listviewitem.getPimg();
+        String img_url = "http://172.30.32.111:4000/static/images/" + listviewitem.getPimg();
         Glide.with(inflater.getContext()).load(img_url).into(product_image);
 
 
